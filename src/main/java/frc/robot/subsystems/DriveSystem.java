@@ -10,8 +10,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotContainer;
 
@@ -42,18 +44,18 @@ public class DriveSystem extends PIDSubsystem {
 
   /** Creates a new DriveSystem. */
   private static WPI_TalonSRX rightFront;
-  private static WPI_TalonSRX rightRear;
+  private static WPI_VictorSPX rightRear;
   private static WPI_TalonSRX leftFront;
-  private static WPI_TalonSRX leftRear;
+  private static WPI_VictorSPX leftRear;
 
   public DriveSystem() {
     // set PID values here
     super(new PIDController(VELOCITY_P, VELOCITY_I, VELOCITY_D));
 
     rightFront = new WPI_TalonSRX(2);
-    rightRear = new WPI_TalonSRX(3);
+    rightRear = new WPI_VictorSPX(3);
     leftFront = new WPI_TalonSRX(0);
-    leftRear = new WPI_TalonSRX(1);
+    leftRear = new WPI_VictorSPX(1);
 
     configureTalon();
   }
@@ -121,6 +123,9 @@ public class DriveSystem extends PIDSubsystem {
     // target speed in encoder units based on joystick position
     targetLeft = left * targetVelocity * 4096 / 600.0;
     targetRight = right * targetVelocity * 4096 / 600.0;
+
+    //SmartDashboard.putNumber("left", targetLeft);
+    //SmartDashboard.putNumber("right", targetRight);
 
     // set target speeds to motors
     this.leftFront.set(ControlMode.Velocity, targetLeft);
