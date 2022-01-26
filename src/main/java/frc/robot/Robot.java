@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
   }
 
   /** This function is called periodically during operator control. */

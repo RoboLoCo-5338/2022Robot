@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -18,13 +20,13 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotContainer;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 475;
+	private static final double MAX_VELOCITY = 200;
 	private static final double SLOW_VELOCITY = 400;
 	private static final double PEAK_OUTPUT = 1.0;
   private static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.000213;
+  public static final double VELOCITY_P = 0.075;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.243;
@@ -43,19 +45,19 @@ public class DriveSystem extends PIDSubsystem {
   
 
   /** Creates a new DriveSystem. */
-  private static WPI_TalonSRX rightFront;
-  private static WPI_VictorSPX rightRear;
-  private static WPI_TalonSRX leftFront;
-  private static WPI_VictorSPX leftRear;
+  private static WPI_TalonFX rightFront;
+  private static WPI_TalonFX rightRear;
+  private static WPI_TalonFX leftFront;
+  private static WPI_TalonFX leftRear;
 
   public DriveSystem() {
     // set PID values here
     super(new PIDController(VELOCITY_P, VELOCITY_I, VELOCITY_D));
 
-    rightFront = new WPI_TalonSRX(2);
-    rightRear = new WPI_VictorSPX(3);
-    leftFront = new WPI_TalonSRX(0);
-    leftRear = new WPI_VictorSPX(1);
+    rightFront = new WPI_TalonFX(2);
+    rightRear = new WPI_TalonFX(3);
+    leftFront = new WPI_TalonFX(0);
+    leftRear = new WPI_TalonFX(1);
 
     configureTalon();
   }
@@ -63,26 +65,38 @@ public class DriveSystem extends PIDSubsystem {
   
   // configure talon properties
   private static void configureTalon() {
-    // rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
     rightFront.setNeutralMode(NeutralMode.Brake);
     rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
-    // rightFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 30);
+		rightFront.configNeutralDeadband(0.001, 0);
+		rightFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+		rightFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+    rightFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
 
-    // leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
     leftFront.setNeutralMode(NeutralMode.Brake);
     leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
-    // leftFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 30);
+		leftFront.configNeutralDeadband(0.001, 0);
+		leftFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+		leftFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+    leftFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftFront.setInverted(true);
 
-    // rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
     rightRear.setNeutralMode(NeutralMode.Brake);
     rightRear.follow(rightFront);
-    // rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 30);
+		rightRear.configNeutralDeadband(0.001, 0);
+		rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+		rightRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+    rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
 
-    // leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
     leftRear.setNeutralMode(NeutralMode.Brake);
     leftRear.follow(leftFront);
-    // leftRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 30);
+		leftRear.configNeutralDeadband(0.001, 0);
+		leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+		leftRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+    leftRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftRear.setInverted(true);
   }
 
