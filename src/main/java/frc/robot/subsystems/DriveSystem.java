@@ -13,8 +13,10 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotContainer;
@@ -50,6 +52,9 @@ public class DriveSystem extends PIDSubsystem {
   private static WPI_TalonFX leftFront;
   private static WPI_TalonFX leftRear;
 
+  // create Gyro object
+  public AHRS navX;
+
   public DriveSystem() {
     // set PID values here
     super(new PIDController(VELOCITY_P, VELOCITY_I, VELOCITY_D));
@@ -58,6 +63,8 @@ public class DriveSystem extends PIDSubsystem {
     rightRear = new WPI_TalonFX(3);
     leftFront = new WPI_TalonFX(0);
     leftRear = new WPI_TalonFX(1);
+
+    navX = new AHRS(SPI.Port.kMXP);
 
     configureTalon();
   }
@@ -161,6 +168,38 @@ public class DriveSystem extends PIDSubsystem {
 		this.rightRear.set(ControlMode.Position, targetPosition);
 		this.leftRear.set(ControlMode.Position, targetPosition);
 	}
+
+  public void angleTurn(String direction) {
+    if (direction.equals("left")) {
+      this.tankPercent(-0.5, 0.5);
+    } else if (direction.equals("right")) {
+      this.tankPercent(0.5, -0.5);
+    } else {
+      this.tankPercent(0, 0);
+    }
+  }
+
+  public double getAngle() {
+		return navX.getAngle();
+	}
+
+	public void resetAngle() {
+		navX.reset();
+	}
+
+  public double getPosition() {
+    double front = leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition();
+    double rear = leftRear.getSelectedSensorPosition() + rightRear.getSelectedSensorPosition();
+    double avg = (front + rear) / 2.0;
+    return avg;
+  }
+
+  public void resetPosition() {
+    leftFront.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
+    leftRear.setSelectedSensorPosition(0);
+    rightRear.setSelectedSensorPosition(0);
+  }
 
   @Override
   public void useOutput(double output, double setpoint) {
