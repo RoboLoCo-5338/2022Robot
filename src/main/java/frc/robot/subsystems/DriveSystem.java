@@ -170,9 +170,9 @@ public class DriveSystem extends PIDSubsystem {
 	}
 
   public void angleTurn(String direction) {
-    if (direction.equals("left")) {
+    if (direction.equalsIgnoreCase("left")) {
       this.tankPercent(-0.5, 0.5);
-    } else if (direction.equals("right")) {
+    } else if (direction.equalsIgnoreCase("right")) {
       this.tankPercent(0.5, -0.5);
     } else {
       this.tankPercent(0, 0);

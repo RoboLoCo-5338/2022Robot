@@ -8,6 +8,7 @@ import org.ejml.equation.Function;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 
 /** Add your docs here. */
@@ -30,6 +31,13 @@ public class AutoCommands {
 			(interrupt) -> RobotContainer.driveSystem.tankDriveVelocity(0, 0),
 			() -> RobotContainer.driveSystem.getPosition() >= distance,
 			RobotContainer.driveSystem
+		);
+	}
+
+	public static Command defaultAutoCommand() {
+		return new SequentialCommandGroup(
+			driveDistanceCommand(5),
+			angleTurnCommand(90, "right")
 		);
 	}
 }
