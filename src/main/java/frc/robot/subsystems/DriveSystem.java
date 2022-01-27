@@ -11,15 +11,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import frc.robot.RobotContainer;
 
 public class DriveSystem extends PIDSubsystem {
 	private static final double MAX_VELOCITY = 200;
@@ -149,24 +145,24 @@ public class DriveSystem extends PIDSubsystem {
     //SmartDashboard.putNumber("right", targetRight);
 
     // set target speeds to motors
-    this.leftFront.set(ControlMode.Velocity, targetLeft);
-    this.rightFront.set(ControlMode.Velocity, targetRight);
+    leftFront.set(ControlMode.Velocity, targetLeft);
+    rightFront.set(ControlMode.Velocity, targetRight);
   }
 
   public void tankPercent(double left, double right) {
-    this.leftFront.set(ControlMode.PercentOutput, left);
-    this.rightFront.set(ControlMode.PercentOutput, right);
-    this.leftRear.set(ControlMode.PercentOutput, left);
-    this.rightRear.set(ControlMode.PercentOutput, right);
+    leftFront.set(ControlMode.PercentOutput, left);
+    rightFront.set(ControlMode.PercentOutput, right);
+    leftRear.set(ControlMode.PercentOutput, left);
+    rightRear.set(ControlMode.PercentOutput, right);
   }
 
   public void driveDistance(double inches) {
     double targetPosition = inches * TICKS_PER_INCH;
     
-    this.rightFront.set(ControlMode.Position, targetPosition);
-		this.leftFront.set(ControlMode.Position, targetPosition);
-		this.rightRear.set(ControlMode.Position, targetPosition);
-		this.leftRear.set(ControlMode.Position, targetPosition);
+    rightFront.set(ControlMode.Position, targetPosition);
+		leftFront.set(ControlMode.Position, targetPosition);
+		rightRear.set(ControlMode.Position, targetPosition);
+		leftRear.set(ControlMode.Position, targetPosition);
 	}
 
   public void angleTurn(String direction) {
