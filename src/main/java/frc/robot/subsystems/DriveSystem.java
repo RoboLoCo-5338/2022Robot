@@ -69,6 +69,7 @@ public class DriveSystem extends PIDSubsystem {
   
   // configure talon properties
   private static void configureTalon() {
+    // JDE: Are current limits set - should they be set here or elsewhere?
     rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
     rightFront.setNeutralMode(NeutralMode.Brake);
     rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
