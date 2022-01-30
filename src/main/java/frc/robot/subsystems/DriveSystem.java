@@ -55,6 +55,7 @@ public class DriveSystem extends PIDSubsystem {
     // set PID values here
     super(new PIDController(VELOCITY_P, VELOCITY_I, VELOCITY_D));
 
+    // Do we want to move these ID's to the Constants.java file?
     rightFront = new WPI_TalonFX(2);
     rightRear = new WPI_TalonFX(3);
     leftFront = new WPI_TalonFX(0);
