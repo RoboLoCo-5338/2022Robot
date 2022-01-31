@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
 import frc.robot.subsystems.DriveSystem;
 
@@ -33,6 +34,11 @@ public class RobotContainer {
       driveSystem
     );
 
+    public Command toggleSlow = new RunCommand(
+      () -> driveSystem.toggleSlow(),
+      driveSystem
+    );
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -46,7 +52,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    JoystickButton slowButton = new JoystickButton(controller, 1);
+    slowButton.whenPressed(toggleSlow);
+  }
 
   private void configureDefaultCommands() {
     driveSystem.setDefaultCommand(defaultDrive);

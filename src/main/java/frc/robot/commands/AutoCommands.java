@@ -36,8 +36,8 @@ public class AutoCommands {
 
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			driveDistanceCommand(5),
-			angleTurnCommand(90, "right")
+			driveDistanceCommand(5)
+			// angleTurnCommand(90, "right")
 		);
 	}
 }

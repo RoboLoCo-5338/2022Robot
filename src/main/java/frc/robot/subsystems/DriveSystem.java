@@ -19,27 +19,28 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
 public class DriveSystem extends PIDSubsystem {
 	private static final double MAX_VELOCITY = 200;
-	private static final double SLOW_VELOCITY = 400;
+	private static final double SLOW_VELOCITY = 150;
 	private static final double PEAK_OUTPUT = 1.0;
-  private static boolean slow = false;
+  public static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.075;
+  public static final double VELOCITY_P = 0.000056282;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
-	public static final double VELOCITY_FEED_FORWARD = 0.243;
+	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.06;
+	public static final double POSITION_P = 0.017047;
 	public static final double POSITION_I = 0.0;
-	public static final double POSITION_D = 0.0;
+	public static final double POSITION_D = 0.000094614;
 	public static final double POSITION_FEED_FORWARD = 0.0;
 
   // encoder math
   private static final double TICKS_PER_REVOLUTION = 2048;
   private static final double WHEEL_DIAMETER = 6.0;
   private static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-  private static final double TICKS_PER_INCH = TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE;
+  private static final double GEAR_RATIO = 10.7 / 1;
+  private static final double TICKS_PER_INCH = (TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE);
   
 
   /** Creates a new DriveSystem. */
@@ -110,22 +111,18 @@ public class DriveSystem extends PIDSubsystem {
     rightFront.config_kP(0, kP, 100);
     rightFront.config_kI(0, kI, 100);
     rightFront.config_kD(0, kD, 100);
-    rightFront.config_kF(0, kF, 100);
 
     leftFront.config_kP(0, kP, 100);
     leftFront.config_kI(0, kI, 100);
     leftFront.config_kD(0, kD, 100);
-    leftFront.config_kF(0, kF, 100);
     
     rightRear.config_kP(0, kP, 100);
     rightRear.config_kI(0, kI, 100);
     rightRear.config_kD(0, kD, 100);
-    rightRear.config_kF(0, kF, 100);
 
     leftRear.config_kP(0, kP, 100);
     leftRear.config_kI(0, kI, 100);
     leftRear.config_kD(0, kD, 100);
-    leftRear.config_kF(0, kF, 100);
   }
 
    // creates a PID velocity robot. Uses PID settings to determine speeds
@@ -141,11 +138,8 @@ public class DriveSystem extends PIDSubsystem {
     }
 
     // target speed in encoder units based on joystick position
-    targetLeft = left * targetVelocity * 4096 / 600.0;
-    targetRight = right * targetVelocity * 4096 / 600.0;
-
-    //SmartDashboard.putNumber("left", targetLeft);
-    //SmartDashboard.putNumber("right", targetRight);
+    targetLeft = left * targetVelocity * 2048 / 600.0;
+    targetRight = right * targetVelocity * 2048 / 600.0;
 
     // set target speeds to motors
     leftFront.set(ControlMode.Velocity, targetLeft);
@@ -160,13 +154,13 @@ public class DriveSystem extends PIDSubsystem {
   }
 
   public void driveDistance(double inches) {
-    double targetPosition = inches * TICKS_PER_INCH;
+    double targetPosition = inches * TICKS_PER_INCH; // 10.7:1 is gear ratio
     
-    rightFront.set(ControlMode.Position, targetPosition);
-		leftFront.set(ControlMode.Position, targetPosition);
-		rightRear.set(ControlMode.Position, targetPosition);
-		leftRear.set(ControlMode.Position, targetPosition);
-	}
+    this.rightFront.set(ControlMode.Position, targetPosition);
+		this.leftFront.set(ControlMode.Position, targetPosition);
+		this.rightRear.follow(rightFront);
+		this.leftRear.follow(leftFront);
+  }
 
   public void angleTurn(String direction) {
     if (direction.equalsIgnoreCase("left")) {
@@ -189,7 +183,7 @@ public class DriveSystem extends PIDSubsystem {
   public double getPosition() {
     double front = leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition();
     double rear = leftRear.getSelectedSensorPosition() + rightRear.getSelectedSensorPosition();
-    double avg = (front + rear) / 2.0;
+    double avg = (front + rear) / 4.0;
     return avg;
   }
 
@@ -198,6 +192,10 @@ public class DriveSystem extends PIDSubsystem {
     rightFront.setSelectedSensorPosition(0);
     leftRear.setSelectedSensorPosition(0);
     rightRear.setSelectedSensorPosition(0);
+  }
+
+  public void toggleSlow() {
+    slow = !slow;
   }
 
   @Override
