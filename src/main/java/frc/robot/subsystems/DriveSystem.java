@@ -154,7 +154,7 @@ public class DriveSystem extends PIDSubsystem {
   }
 
   public void driveDistance(double inches) {
-    double targetPosition = inches * TICKS_PER_INCH; // 10.7:1 is gear ratio
+    double targetPosition = inches * TICKS_PER_INCH * GEAR_RATIO; // 10.7:1 is gear ratio
     
     this.rightFront.set(ControlMode.Position, targetPosition);
 		this.leftFront.set(ControlMode.Position, targetPosition);
