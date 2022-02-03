@@ -67,7 +67,7 @@ public class AutoCommands {
 			angleTurnCommand(180, "right"),
 			//stop intake,
 			driveDistanceCommand(116.17),
-			angleTurnCommand(22.5, "right"),
+			angleTurnCommand(22.5, "left"),
 			//fire 2 balls,
 			driveDistanceCommand(-116.17)
 		);
