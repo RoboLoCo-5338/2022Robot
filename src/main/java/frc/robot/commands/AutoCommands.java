@@ -84,11 +84,18 @@ public class AutoCommands {
 			driveDistanceCommand(-75.07)
 		);
 	}
-	public static Command bottomMidLeft() {
+	public static Command bottomRightLeft() {
 		return new SequentialCommandGroup(
-			/*start,
-			???,
-			PROFIT!*/
+			driveDistanceCommand(153),
+			angleTurnCommand(67.5, "left"),
+			driveDistanceIntake(40.44),
+			angleTurnCommand(180, "right"),
+			//stop intake,
+			driveDistanceCommand(40.44),
+			angleTurnCommand(65, "right"),
+			driveDistanceCommand(75.07),
+			//fire 2 balls,
+			driveDistanceCommand(-75.07)
 		);
 	}
 }
