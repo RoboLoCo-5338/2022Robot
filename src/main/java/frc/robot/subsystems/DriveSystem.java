@@ -15,22 +15,23 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 200;
+	private static final double MAX_VELOCITY = 300;
 	private static final double SLOW_VELOCITY = 150;
 	private static final double PEAK_OUTPUT = 1.0;
   public static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.000056282;
+  public static final double VELOCITY_P = 0.075;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.017047;
+	public static final double POSITION_P = 0.0017047;
 	public static final double POSITION_I = 0.0;
 	public static final double POSITION_D = 0.000094614;
 	public static final double POSITION_FEED_FORWARD = 0.0;
@@ -72,24 +73,22 @@ public class DriveSystem extends PIDSubsystem {
   private static void configureTalon() {
     // JDE: Are current limits set - should they be set here or elsewhere?
     // https://docs.ctre-phoenix.com/en/latest/ch13_MC.html#new-api-in-2020
-    rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightFront.setNeutralMode(NeutralMode.Brake);
-    rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
 		rightFront.configNeutralDeadband(0.001, 0);
 		rightFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
 		rightFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
 
-    leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftFront.setNeutralMode(NeutralMode.Brake);
-    leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
 		leftFront.configNeutralDeadband(0.001, 0);
 		leftFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
 		leftFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     leftFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftFront.setInverted(true);
 
-    rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightRear.setNeutralMode(NeutralMode.Brake);
     rightRear.follow(rightFront);
 		rightRear.configNeutralDeadband(0.001, 0);
@@ -97,7 +96,7 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
 
-    leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
+    leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.setNeutralMode(NeutralMode.Brake);
     leftRear.follow(leftFront);
 		leftRear.configNeutralDeadband(0.001, 0);
@@ -149,8 +148,8 @@ public class DriveSystem extends PIDSubsystem {
   public void tankPercent(double left, double right) {
     leftFront.set(ControlMode.PercentOutput, left);
     rightFront.set(ControlMode.PercentOutput, right);
-    leftRear.set(ControlMode.PercentOutput, left);
-    rightRear.set(ControlMode.PercentOutput, right);
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
   }
 
   public void driveDistance(double inches) {
@@ -160,13 +159,16 @@ public class DriveSystem extends PIDSubsystem {
 		this.leftFront.set(ControlMode.Position, targetPosition);
 		this.rightRear.follow(rightFront);
 		this.leftRear.follow(leftFront);
+
+    System.out.println("left: " + leftFront.getSelectedSensorPosition());
+    System.out.println("right: " + rightFront.getSelectedSensorPosition());
   }
 
   public void angleTurn(String direction) {
     if (direction.equalsIgnoreCase("left")) {
-      this.tankPercent(-0.5, 0.5);
+      this.tankPercent(0.2, -0.2);
     } else if (direction.equalsIgnoreCase("right")) {
-      this.tankPercent(0.5, -0.5);
+      this.tankPercent(-0.2, 0.2);
     } else {
       this.tankPercent(0, 0);
     }
@@ -181,10 +183,8 @@ public class DriveSystem extends PIDSubsystem {
 	}
 
   public double getPosition() {
-    double front = leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition();
-    double rear = leftRear.getSelectedSensorPosition() + rightRear.getSelectedSensorPosition();
-    double avg = (front + rear) / 4.0;
-    return avg;
+    double pos = rightFront.getSelectedSensorPosition();
+    return pos / GEAR_RATIO / TICKS_PER_INCH;
   }
 
   public void resetPosition() {
