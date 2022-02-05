@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.ShooterSystem;
+import frc.robot.commands.ShooterCommands;
+import frc.robot.Constants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,6 +26,7 @@ import frc.robot.subsystems.DriveSystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static DriveSystem driveSystem = new DriveSystem();
+  public static ShooterSystem shooterSystem = new ShooterSystem();
   private Joystick controller = new Joystick(0);
 
   // Initialize the drive command
@@ -53,8 +57,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slowButton = new JoystickButton(controller, 1);
+    JoystickButton slowButton = new JoystickButton(controller, Constants.aButton);
     slowButton.whenPressed(toggleSlow);
+
+    JoystickButton shooterButton = new JoystickButton(controller, Constants.bButton);
+    shooterButton.whenPressed(ShooterCommands.shootCommand());
+    shooterButton.whenReleased(ShooterCommands.stopShootCommand());
   }
 
   private void configureDefaultCommands() {
