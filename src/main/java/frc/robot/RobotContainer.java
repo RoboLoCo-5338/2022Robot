@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveSystem;
 
 /**
@@ -23,13 +24,15 @@ import frc.robot.subsystems.DriveSystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static DriveSystem driveSystem = new DriveSystem();
-  private Joystick controller = new Joystick(0);
+  public static Climb climb = new Climb();
+  private Joystick controller1 = new Joystick(0);
+  private Joystick controller2 = new Joystick(1);
 
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
       () -> driveSystem.tankDriveVelocity(
-        this.controller.getRawAxis(1),
-        this.controller.getRawAxis(5)
+        this.controller1.getRawAxis(1),
+        this.controller1.getRawAxis(5)
       ),
       driveSystem
     );
@@ -37,6 +40,16 @@ public class RobotContainer {
     public Command toggleSlow = new RunCommand(
       () -> driveSystem.toggleSlow(),
       driveSystem
+    );
+
+    public Command longArmToggle = new RunCommand(
+      () -> climb.longArm(),
+      climb
+    );
+
+    public Command shortArmToggle = new RunCommand(
+      () -> climb.shortArm(),
+      climb
     );
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -53,8 +66,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slowButton = new JoystickButton(controller, 1);
+    JoystickButton slowButton = new JoystickButton(controller1, 1);
     slowButton.whenPressed(toggleSlow);
+    JoystickButton longPiston = new JoystickButton(controller2, 3);
+    longPiston.whenPressed(longArmToggle);
+    JoystickButton shortPiston = new JoystickButton(controller2, 4);
+    shortPiston.whenPressed(shortArmToggle);
+    JoystickButton climbMotor = new JoystickButton(controller2, 5);
+    //toggle motor
+    JoystickButton climbWinch = new JoystickButton(controller2, 6);
+    //toggle winch
   }
 
   private void configureDefaultCommands() {
