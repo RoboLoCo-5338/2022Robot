@@ -160,18 +160,20 @@ public class DriveSystem extends PIDSubsystem {
 		this.rightRear.follow(rightFront);
 		this.leftRear.follow(leftFront);
 
-    System.out.println("left: " + leftFront.getSelectedSensorPosition());
-    System.out.println("right: " + rightFront.getSelectedSensorPosition());
+    // System.out.println("left: " + leftFront.getSelectedSensorPosition());
+    // System.out.println("right: " + rightFront.getSelectedSensorPosition());
   }
 
   public void angleTurn(String direction) {
     if (direction.equalsIgnoreCase("left")) {
-      this.tankPercent(0.2, -0.2);
+      this.tankDriveVelocity(0.15, -0.15);
     } else if (direction.equalsIgnoreCase("right")) {
-      this.tankPercent(-0.2, 0.2);
+      this.tankDriveVelocity(-0.15, 0.15);
     } else {
-      this.tankPercent(0, 0);
+      this.tankDriveVelocity(0, 0);
     }
+
+    System.out.println("angle: " + getAngle());
   }
 
   public double getAngle() {

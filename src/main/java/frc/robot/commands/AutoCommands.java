@@ -30,7 +30,7 @@ public class AutoCommands {
 			() -> RobotContainer.driveSystem.resetPosition(),
 			() -> RobotContainer.driveSystem.driveDistance(distance),
 			(interrupt) -> RobotContainer.driveSystem.tankDriveVelocity(0, 0),
-			() -> RobotContainer.driveSystem.getPosition() >= distance,
+			() -> Math.abs(RobotContainer.driveSystem.getPosition()) >= Math.abs(distance),
 			RobotContainer.driveSystem
 		);
 	}
