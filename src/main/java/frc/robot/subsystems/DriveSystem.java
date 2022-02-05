@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -15,7 +14,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
 public class DriveSystem extends PIDSubsystem {
@@ -132,7 +130,7 @@ public class DriveSystem extends PIDSubsystem {
     // max rpm of wheels desired
     double targetVelocity = MAX_VELOCITY;
     
-    if (this.slow) {
+    if (slow) {
       targetVelocity = SLOW_VELOCITY;
     }
 
@@ -155,10 +153,10 @@ public class DriveSystem extends PIDSubsystem {
   public void driveDistance(double inches) {
     double targetPosition = inches * TICKS_PER_INCH * GEAR_RATIO; // 10.7:1 is gear ratio
     
-    this.rightFront.set(ControlMode.Position, targetPosition);
-		this.leftFront.set(ControlMode.Position, targetPosition);
-		this.rightRear.follow(rightFront);
-		this.leftRear.follow(leftFront);
+    rightFront.set(ControlMode.Position, targetPosition);
+		leftFront.set(ControlMode.Position, targetPosition);
+		rightRear.follow(rightFront);
+		leftRear.follow(leftFront);
 
     System.out.println("left: " + leftFront.getSelectedSensorPosition());
     System.out.println("right: " + rightFront.getSelectedSensorPosition());
