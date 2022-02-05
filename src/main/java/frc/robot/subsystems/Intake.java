@@ -13,6 +13,17 @@ public class Intake {
    private DoubleSolenoid leftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,3,4);//left solenoid object, ports are placeholders
    private WPI_TalonFX intakeMotor = new WPI_TalonFX(2);
     
-   rightSolenoid.set(kOff);
+   rightSolenoid.set(kForward);
+   leftSolenoid.set(kForward);
+
+
+   public void extendIntake(){
+      if (m_controller.getYButtonPressed()) {//the controller name and button are placeholders
+         rightSolenoid.toggle();
+         leftSolenoid.toggle();
+      } 
+   }
+   
+
 
 }
