@@ -39,10 +39,11 @@ public class AutoCommands {
 		return new RunCommand(() -> RobotContainer.driveSystem.tankDriveVelocity(0, 0), RobotContainer.driveSystem);
 	}
 
+	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(24),
-			angleTurnCommand(90, "right").andThen(stopCommand()),
+			angleTurnCommand(90, "right").andThen(stopCommand()), //andThen tells what to do right after command finishes
 			driveDistanceCommand(12)
 		);
 	}
@@ -54,6 +55,7 @@ public class AutoCommands {
 		);
 	}
 
+	// start on bottom line (parallel to long side of field)
 	public static Command bottomMid1() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
@@ -77,6 +79,8 @@ public class AutoCommands {
 			driveDistanceCommand(-116.17)
 		);
 	}
+
+	// start at far left corner (get left ball)
 	public static Command bottomLeft() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
@@ -89,6 +93,8 @@ public class AutoCommands {
 			driveDistanceCommand(-75.07)
 		);
 	}
+
+	// start at far right corner (get left ball)
 	public static Command bottomRightLeft() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(153),
