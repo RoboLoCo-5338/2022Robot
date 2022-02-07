@@ -19,7 +19,7 @@ import frc.robot.Constants;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 public class Climb extends PIDSubsystem {
-	public static Constants constants = new Constants();
+	public static Constants constants = new Constants();  // TODO: You don't need to create a constants object. If you create static variables, you can refer to them as Constants.variableName
     private static final double MAX_VELOCITY = 300;
 	private static final double PEAK_OUTPUT = 1.0;
 
@@ -38,6 +38,7 @@ public class Climb extends PIDSubsystem {
     
 
     /** Initialize Talons */
+    /** TODO: Do NOT capitalize variable names unless they are final */
     private static WPI_TalonFX Motor;
     private static WPI_TalonFX Winch1;
     private static WPI_TalonFX Winch2;
@@ -96,6 +97,8 @@ public class Climb extends PIDSubsystem {
         Winch2.config_kI(0, kI, 100);
         Winch2.config_kD(0, kD, 100);
     }
+	
+    // TODO: Name the below methods differently or comment specifically what they do
     
     public void setMotor(double val){
         Motor.set(ControlMode.PercentOutput, val);
