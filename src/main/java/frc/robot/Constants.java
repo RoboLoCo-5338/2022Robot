@@ -14,8 +14,11 @@ package frc.robot;
  */
 public final class Constants {
     //these are placeholders
+    // TODO: make these static
     public final double CLIMB_LONG_IN = 0.0;
     public final double CLIMB_LONG_OUT = 0.0;
+    
+    // TODO: Capitalize final variables
     public static final int aButton = 1; 
     public static final int bButton = 2; 
     public static final int xButton = 3; 
