@@ -58,15 +58,15 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slowButton = new JoystickButton(controller1, 1);
+    JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
     slowButton.whenPressed(toggleSlow);
-    JoystickButton longPistons = new JoystickButton(controller2, 3);
+    JoystickButton longPistons = new JoystickButton(controller2, Constants.XBUTTON);
     longPistons.whenPressed(ClimbCommands.toggleLongArms);
-    JoystickButton shortPistons = new JoystickButton(controller2, 4);
+    JoystickButton shortPistons = new JoystickButton(controller2, Constants.YBUTTON);
     shortPistons.whenPressed(ClimbCommands.toggleShortArms);
-    JoystickButton climbMotor = new JoystickButton(controller2, 5);
+    JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
     climbMotor.whenPressed(ClimbCommands.toggleClimbMotor);
-    JoystickButton climbWinch = new JoystickButton(controller2, 6);
+    JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
     climbMotor.whenPressed(ClimbCommands.toggleClimbWinch);
   }
 
