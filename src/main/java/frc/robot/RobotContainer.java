@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Intake;
 
@@ -57,6 +58,26 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton slowButton = new JoystickButton(controller, 1);
     slowButton.whenPressed(toggleSlow);
+    
+    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.bButton);//replace all the buttons+ figure it out
+    pneumaticsButton.whenPressed(IntakeCommands.extend());
+    pneumaticsButton.whenReleased(IntakeCommands.retract());
+
+    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.aButton);
+    intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.xButton);
+    intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
+    intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.yButton);
+    outakeIndexForward.whenPressed(IntakeCommands.extend());
+    outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.leftTriggerButton);
+    outakeIndexReverse.whenPressed(IntakeCommands.extend());
+    outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
   }
 
   private void configureDefaultCommands() {

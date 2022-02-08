@@ -17,6 +17,19 @@ public class IntakeCommands {
 			RobotContainer.intake
 		);
     } 
+    public static Command stopIndex() {//creates the stop index command
+        return new RunCommand(
+			() -> RobotContainer.intake.stopIndex(),
+			RobotContainer.intake
+		);
+    }
+    public static Command stopIntake() {//creates the stop intake command
+        return new RunCommand(
+			() -> RobotContainer.intake.stopIntake(),
+			RobotContainer.intake
+		);
+    }  
+    
     public static Command extend() {//creates the extend command
         return new RunCommand(
 			() -> RobotContainer.intake.extend(),
