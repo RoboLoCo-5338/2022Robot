@@ -11,6 +11,7 @@ public class Intake extends SubsystemBase{
    private static DoubleSolenoid rightSolenoid;//creates the solenoid objects and the motor object
    private static DoubleSolenoid leftSolenoid;
    private static WPI_TalonFX intakeMotor;
+   private static WPI_TalonFX intakeIndexMotor;
 
    public Intake(){
    /* pneumatics on the right and left go at the same time
@@ -18,29 +19,45 @@ public class Intake extends SubsystemBase{
    */
       DoubleSolenoid rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,1,2);// right solenoid object, ports are placeholders
       DoubleSolenoid leftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,3,4);//left solenoid object, ports are placeholders
-      WPI_TalonFX intakeMotor = new WPI_TalonFX(2);
+      WPI_TalonFX intakeMotor = new WPI_TalonFX(2);//intake motor
+      WPI_TalonFX intakeIndexMotor = new WPI_TalonFX(3);//index motor
    }
-    
-   public void extendIntake(){
-         rightSolenoid.set(kForward);
-         leftSolenoid.set(kForward); 
-         intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder    
+   public void indexForward(){//moves the index forward
+      intakeIndexMotor.set(ControlMode.PercentOutput, 0.5);
    }
-
-   public void extendOutake(){
+   public void indexReverse(){//moves the index reverse
+      intakeIndexMotor.set(ControlMode.PercentOutput, -0.5);
+   }
+   public void extend(){//extend pneumatics
       rightSolenoid.set(kForward);
       leftSolenoid.set(kForward); 
-      intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
    }
-
-   public void retractIntake(){
-         rightSolenoid.toggle();
-         leftSolenoid.toggle();
-         intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
-   }
-   public void retractOutake(){
+   public void retract(){//retract pneumatics
       rightSolenoid.toggle();
       leftSolenoid.toggle();
-      intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor   
+   }
+   public void intake(){//intake motor
+      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
+   }
+   public void outake(){//outake motor
+      intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
+   }
+   //combos of the intake motor and the indexing motor
+
+   public void intakeIndexForward(){
+      intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
+      intakeIndexMotor.set(ControlMode.PercentOutput, 0.5);
+   }
+   public void intakeIndexReverse(){
+      intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
+      intakeIndexMotor.set(ControlMode.PercentOutput, -0.5);
+   }
+   public void outakeIndexForward(){
+      intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor 
+      intakeIndexMotor.set(ControlMode.PercentOutput, 0.5);  
+   }
+   public void outakeIndexReverse(){
+      intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor
+      intakeIndexMotor.set(ControlMode.PercentOutput, -0.5);   
    }
 }

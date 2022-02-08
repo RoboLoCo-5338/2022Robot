@@ -5,32 +5,64 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.RobotContainer;
 
 public class IntakeCommands {
-    public static Command extendIntakeCommand() {//creates the extend intake command
+    public static Command indexForward() {//creates the forward index command
         return new RunCommand(
-			() -> RobotContainer.intake.extendIntake(),
+			() -> RobotContainer.intake.indexForward(),
+			RobotContainer.intake
+		);
+    } 
+    public static Command indexReverse() {//creates the  reverse index command
+        return new RunCommand(
+			() -> RobotContainer.intake.indexReverse(),
+			RobotContainer.intake
+		);
+    } 
+    public static Command extend() {//creates the extend command
+        return new RunCommand(
+			() -> RobotContainer.intake.extend(),
+			RobotContainer.intake
+		);
+    }
+    public static Command retract() {//creates the retract  command
+        return new RunCommand(
+			() -> RobotContainer.intake.retract(),
+			RobotContainer.intake
+		);
+    } 
+    public static Command intake() {//creates the intake command
+        return new RunCommand(
+			() -> RobotContainer.intake.intake(),
 			RobotContainer.intake
 		);
     }  
-
-    public static Command extendOutakeCommand() {//creates the extend outake command
+    public static Command outake() {//creates the outake command
         return new RunCommand(
-			() -> RobotContainer.intake.extendOutake(),
+			() -> RobotContainer.intake.outake(),
+			RobotContainer.intake
+		);
+    } 
+    public static Command intakeIndexForward() {//creates the intake + forward index command
+        return new RunCommand(
+			() -> RobotContainer.intake.intakeIndexForward(),
 			RobotContainer.intake
 		);
     }  
-
-    public static Command retractIntakeCommand() {//creates the retract intake command
+    public static Command intakeIndexReverse() {//creates the intake + reverse index command
         return new RunCommand(
-			() -> RobotContainer.intake.extendOutake(),
+			() -> RobotContainer.intake.intakeIndexReverse(),
 			RobotContainer.intake
 		);
-    }  
-
-    public static Command retractOutakeCommand() {//creates the retract outake command
+    }
+    public static Command outakeIndexForward() {//creates the outake + forward index command
         return new RunCommand(
-			() -> RobotContainer.intake.extendOutake(),
+			() -> RobotContainer.intake.outakeIndexForward(),
 			RobotContainer.intake
 		);
-    }  
-
+    } 
+    public static Command outakeIndexReverse() {//creates the outake + reverse index command
+        return new RunCommand(
+			() -> RobotContainer.intake.outakeIndexReverse(),
+			RobotContainer.intake
+		);
+    }          
 }
