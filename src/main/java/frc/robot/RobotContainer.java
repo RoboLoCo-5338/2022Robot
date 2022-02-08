@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
+import frc.robot.commands.ClimbCommands;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveSystem;
 
@@ -42,25 +43,7 @@ public class RobotContainer {
       driveSystem
     );
 
-    public Command toggleLongArms = new RunCommand(
-      () -> climb.toggleLongArms(),
-      climb
-    );
-
-    public Command toggleShortArms = new RunCommand(
-      () -> climb.toggleShortArms(),
-      climb
-    );
-
-    public Command toggleClimbMotor = new RunCommand(
-      () -> climb.toggleClimbMotor(),
-      climb
-    );
-
-    public Command toggleClimbWinch = new RunCommand(
-      () -> climb.toggleClimbWinch(),
-      climb
-    );
+    
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -78,13 +61,13 @@ public class RobotContainer {
     JoystickButton slowButton = new JoystickButton(controller1, 1);
     slowButton.whenPressed(toggleSlow);
     JoystickButton longPistons = new JoystickButton(controller2, 3);
-    longPistons.whenPressed(toggleLongArms);
+    longPistons.whenPressed(ClimbCommands.toggleLongArms);
     JoystickButton shortPistons = new JoystickButton(controller2, 4);
-    shortPistons.whenPressed(toggleShortArms);
+    shortPistons.whenPressed(ClimbCommands.toggleShortArms);
     JoystickButton climbMotor = new JoystickButton(controller2, 5);
-    climbMotor.whenPressed(toggleClimbMotor);
+    climbMotor.whenPressed(ClimbCommands.toggleClimbMotor);
     JoystickButton climbWinch = new JoystickButton(controller2, 6);
-    climbMotor.whenPressed(toggleClimbWinch);
+    climbMotor.whenPressed(ClimbCommands.toggleClimbWinch);
   }
 
   private void configureDefaultCommands() {

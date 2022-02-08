@@ -99,15 +99,13 @@ public class Climb extends PIDSubsystem {
         winch2.config_kI(0, kI, 100);
         winch2.config_kD(0, kD, 100);
     }
-	
-    // TODO: Name the below methods differently or comment specifically what they do
     
     public void toggleClimbMotor(){
         if(motor.getSelectedSensorPosition() != 0.0){
             motor.set(ControlMode.Position, 0.0);
         }
         else{
-            motor.set(ControlMode.Position, 90.0); //todo: 90 is a placeholder value, replace with correct number later
+            motor.set(ControlMode.Position, 90.0); //TODO: 90 is a placeholder value, replace with correct number later
         }
     }
     public void toggleClimbWinch(){
