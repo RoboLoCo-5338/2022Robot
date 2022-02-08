@@ -42,16 +42,25 @@ public class RobotContainer {
       driveSystem
     );
 
-    public Command longArmToggle = new RunCommand(
-      () -> climb.longArm(),
+    public Command toggleLongArms = new RunCommand(
+      () -> climb.toggleLongArms(),
       climb
     );
 
-    public Command shortArmToggle = new RunCommand(
-      () -> climb.shortArm(),
+    public Command toggleShortArms = new RunCommand(
+      () -> climb.toggleShortArms(),
       climb
     );
 
+    public Command toggleClimbMotor = new RunCommand(
+      () -> climb.toggleClimbMotor(),
+      climb
+    );
+
+    public Command toggleClimbWinch = new RunCommand(
+      () -> climb.toggleClimbWinch(),
+      climb
+    );
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -68,14 +77,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton slowButton = new JoystickButton(controller1, 1);
     slowButton.whenPressed(toggleSlow);
-    JoystickButton longPiston = new JoystickButton(controller2, 3);
-    longPiston.whenPressed(longArmToggle);
-    JoystickButton shortPiston = new JoystickButton(controller2, 4);
-    shortPiston.whenPressed(shortArmToggle);
+    JoystickButton longPistons = new JoystickButton(controller2, 3);
+    longPistons.whenPressed(toggleLongArms);
+    JoystickButton shortPistons = new JoystickButton(controller2, 4);
+    shortPistons.whenPressed(toggleShortArms);
     JoystickButton climbMotor = new JoystickButton(controller2, 5);
-    //toggle motor
+    climbMotor.whenPressed(toggleClimbMotor);
     JoystickButton climbWinch = new JoystickButton(controller2, 6);
-    //toggle winch
+    climbMotor.whenPressed(toggleClimbWinch);
   }
 
   private void configureDefaultCommands() {

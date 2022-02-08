@@ -18,8 +18,9 @@ import frc.robot.Constants;
 
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
+import javax.swing.text.Position;
+
 public class Climb extends PIDSubsystem {
-	public static Constants constants = new Constants();  // TODO: You don't need to create a constants object. If you create static variables, you can refer to them as Constants.variableName
     private static final double MAX_VELOCITY = 300;
 	private static final double PEAK_OUTPUT = 1.0;
 
@@ -38,22 +39,23 @@ public class Climb extends PIDSubsystem {
     
 
     /** Initialize Talons */
-    /** TODO: Do NOT capitalize variable names unless they are final */
-    private static WPI_TalonFX Motor;
-    private static WPI_TalonFX Winch1;
-    private static WPI_TalonFX Winch2;
+    private static WPI_TalonFX motor;
+    private static WPI_TalonFX winch1;
+    private static WPI_TalonFX winch2;
 
     //initialize solenoids
-    DoubleSolenoid longArm = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,1,2);
-    DoubleSolenoid shortArm = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,3,4);
+    DoubleSolenoid longArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
+    DoubleSolenoid longArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
+    DoubleSolenoid shortArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,4,5);
+    DoubleSolenoid shortArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,6,7);
 
     public Climb() {
         super(new PIDController(ANGLE_P, ANGLE_I, ANGLE_D));
 
         // Do we want to move these ID's to the Constants.java file?
-        Motor = new WPI_TalonFX(0);
-        Winch1 = new WPI_TalonFX(1);
-        Winch2 = new WPI_TalonFX(2);
+        motor = new WPI_TalonFX(0);
+        winch1 = new WPI_TalonFX(1);
+        winch2 = new WPI_TalonFX(2);
 
         configureTalon();
 
@@ -62,58 +64,72 @@ public class Climb extends PIDSubsystem {
     private static void configureTalon() {
         // JDE: Are current limits set - should they be set here or elsewhere?
         // https://docs.ctre-phoenix.com/en/latest/ch13_MC.html#new-api-in-2020
-        Motor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
-        Motor.setNeutralMode(NeutralMode.Brake);
-        Motor.configNeutralDeadband(0.001, 0);
-        Motor.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-        Motor.setControlFramePeriod(ControlFrame.Control_3_General, 5);
-        Motor.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+        motor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+        motor.setNeutralMode(NeutralMode.Brake);
+        motor.configNeutralDeadband(0.001, 0);
+        motor.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+        motor.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+        motor.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     
-        Winch1.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
-        Winch1.setNeutralMode(NeutralMode.Brake);
-        Winch1.configNeutralDeadband(0.001, 0);
-        Winch1.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-        Winch1.setControlFramePeriod(ControlFrame.Control_3_General, 5);
-        Winch1.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+        winch1.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+        winch1.setNeutralMode(NeutralMode.Brake);
+        winch1.configNeutralDeadband(0.001, 0);
+        winch1.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+        winch1.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+        winch1.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     
-        Winch2.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
-        Winch2.setNeutralMode(NeutralMode.Brake);
-        Winch2.follow(Winch1);
-        Winch2.configNeutralDeadband(0.001, 0);
-        Winch2.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-        Winch2.setControlFramePeriod(ControlFrame.Control_3_General, 5);
-        Winch2.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+        winch2.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+        winch2.setNeutralMode(NeutralMode.Brake);
+        winch2.follow(winch1);
+        winch2.configNeutralDeadband(0.001, 0);
+        winch2.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+        winch2.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+        winch2.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     }
     public void setPIDF(double kP, double kI, double kD, double kF) {
-        Motor.config_kP(0, kP, 100);
-        Motor.config_kI(0, kI, 100);
-        Motor.config_kD(0, kD, 100);
+        motor.config_kP(0, kP, 100);
+        motor.config_kI(0, kI, 100);
+        motor.config_kD(0, kD, 100);
 
-        Winch1.config_kP(0, kP, 100);
-        Winch1.config_kI(0, kI, 100);
-        Winch1.config_kD(0, kD, 100);
+        winch1.config_kP(0, kP, 100);
+        winch1.config_kI(0, kI, 100);
+        winch1.config_kD(0, kD, 100);
         
-        Winch2.config_kP(0, kP, 100);
-        Winch2.config_kI(0, kI, 100);
-        Winch2.config_kD(0, kD, 100);
+        winch2.config_kP(0, kP, 100);
+        winch2.config_kI(0, kI, 100);
+        winch2.config_kD(0, kD, 100);
     }
 	
     // TODO: Name the below methods differently or comment specifically what they do
     
-    public void setMotor(double val){
-        Motor.set(ControlMode.PercentOutput, val);
+    public void toggleClimbMotor(){
+        if(motor.getSelectedSensorPosition() != 0.0){
+            motor.set(ControlMode.Position, 0.0);
+        }
+        else{
+            motor.set(ControlMode.Position, 90.0); //todo: 90 is a placeholder value, replace with correct number later
+        }
     }
-    public void setWinch(double val){
-        Winch1.set(ControlMode.PercentOutput, val);
-        Winch2.follow(Winch1);
+    public void toggleClimbWinch(){
+        if(winch1.getSelectedSensorPosition() != 0.0){
+            winch1.set(ControlMode.Position, 0.0);
+            winch2.follow(winch1);
+        }
+        else{
+            winch1.set(ControlMode.Position, 90.0); //90 is a placeholder value
+            winch2.follow(winch1);
+
+        }
     }
 
-    public void shortArm(){
-        longArm.toggle();
+    public void toggleLongArms(){
+        longArm1.toggle();
+        longArm2.toggle();
     }
 
-    public void longArm(){
-        longArm.toggle();
+    public void toggleShortArms(){
+        shortArm1.toggle();
+        shortArm2.toggle();
     }
 
     @Override
