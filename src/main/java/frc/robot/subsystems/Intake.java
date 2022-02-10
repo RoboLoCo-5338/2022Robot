@@ -36,18 +36,19 @@ public class Intake extends SubsystemBase{
       rightSolenoid.toggle();
       leftSolenoid.toggle();
    }
-   public void stopIndex(){
-      intakeIndexMotor.set(ControlMode.PercentOutput, 0);
-   }
-   public void stopIntake(){
-      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
-   }
    public void intake(){//intake motor
       intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
    }
    public void outake(){//outake motor
       intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
    }
+   public void stopIndex(){
+      intakeIndexMotor.set(ControlMode.PercentOutput, 0);
+   }
+   public void stopIntake(){
+      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
+   }
+   
    //combos of the intake motor and the indexing motor
 
    public void intakeIndexForward(){
