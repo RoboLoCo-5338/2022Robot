@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -11,14 +10,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
-
-import javax.swing.text.Position;
 
 public class Climb extends PIDSubsystem {
     private static final double MAX_VELOCITY = 300;
@@ -50,13 +45,11 @@ public class Climb extends PIDSubsystem {
     public Climb() {
         super(new PIDController(ANGLE_P, ANGLE_I, ANGLE_D));
 
-        // Do we want to move these ID's to the Constants.java file?
-        motor = new WPI_TalonFX(0);
-        winch1 = new WPI_TalonFX(1);
-        winch2 = new WPI_TalonFX(2);
+        motor = new WPI_TalonFX(Constants.CLIMB_MOTOR_ID);
+        winch1 = new WPI_TalonFX(Constants.WINCH_1_ID);
+        winch2 = new WPI_TalonFX(Constants.WINCH_2_ID);
 
         configureTalon();
-
     }
 
     private static void configureTalon() {

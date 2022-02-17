@@ -16,6 +16,11 @@ public final class Constants {
     //these are placeholders
     public static final double CLIMB_LONG_IN = 0.0;
     public static final double CLIMB_LONG_OUT = 0.0;
+
+    //CAN IDs
+    public static final int CLIMB_MOTOR_ID = 0;
+    public static final int WINCH_1_ID = 1;
+    public static final int WINCH_2_ID = 2;
     
     public static final int ABUTTON = 1; 
     public static final int BBUTTON = 2; 
