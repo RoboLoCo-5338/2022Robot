@@ -58,9 +58,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    RobotContainer.driveSystem.resetPosition();
-    RobotContainer.driveSystem.resetAngle();
-    RobotContainer.driveSystem.setPIDF(DriveSystem.POSITION_P, DriveSystem.POSITION_I, DriveSystem.POSITION_D, DriveSystem.POSITION_FEED_FORWARD);
+    // RobotContainer.driveSystem.resetPosition();
+    // RobotContainer.driveSystem.resetAngle();
+    // RobotContainer.driveSystem.setPIDF(DriveSystem.POSITION_P, DriveSystem.POSITION_I, DriveSystem.POSITION_D, DriveSystem.POSITION_FEED_FORWARD);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -79,11 +79,11 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    RobotContainer.driveSystem.resetPosition();
+    //RobotContainer.driveSystem.resetPosition();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
+    //RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
   }
 
   /** This function is called periodically during operator control. */

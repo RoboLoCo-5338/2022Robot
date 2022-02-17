@@ -44,10 +44,8 @@ public class Climb extends PIDSubsystem {
     private static WPI_TalonFX winch2;
 
     //initialize solenoids
-    DoubleSolenoid longArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
-    DoubleSolenoid longArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
-    DoubleSolenoid shortArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,4,5);
-    DoubleSolenoid shortArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,6,7);
+    DoubleSolenoid longArm = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
+    DoubleSolenoid shortArm = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
 
     public Climb() {
         super(new PIDController(ANGLE_P, ANGLE_I, ANGLE_D));
@@ -120,14 +118,19 @@ public class Climb extends PIDSubsystem {
         }
     }
 
-    public void toggleLongArms(){
-        longArm1.toggle();
-        longArm2.toggle();
+    public void longForward() {
+        longArm.set(kForward);
+    }
+    public void longReverse(){
+        longArm.set(kReverse);
     }
 
-    public void toggleShortArms(){
-        shortArm1.toggle();
-        shortArm2.toggle();
+    public void shortForward(){
+        shortArm.set(kForward);
+    }
+
+    public void shortReverse() {
+        shortArm.set(kReverse);
     }
 
     @Override

@@ -5,21 +5,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
 
 /** Add your docs here. */
 public class ClimbCommands {
-    public static Command toggleLongArms = new RunCommand(
-      () -> RobotContainer.climb.toggleLongArms(),
+    public static Command longForward = new RunCommand(
+      () -> RobotContainer.climb.longForward(),
       RobotContainer.climb
     );
 
-    public static Command toggleShortArms = new RunCommand(
-      () -> RobotContainer.climb.toggleShortArms(),
+    public static Command longReverse = new RunCommand(
+      () -> RobotContainer.climb.longReverse(),
+      RobotContainer.climb
+    );
+
+    public static Command shortForward = new RunCommand(
+      () -> RobotContainer.climb.shortForward(),
+      RobotContainer.climb
+    );
+
+    public static Command shortReverse = new RunCommand(
+      () -> RobotContainer.climb.shortReverse(),
       RobotContainer.climb
     );
 

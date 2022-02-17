@@ -24,8 +24,9 @@ import frc.robot.subsystems.DriveSystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static DriveSystem driveSystem = new DriveSystem();
+  //public static DriveSystem driveSystem = new DriveSystem();
   public static Climb climb = new Climb();
+  public static DriveSystem driveSystem = new DriveSystem();
   private Joystick controller1 = new Joystick(0);
   private Joystick controller2 = new Joystick(1);
 
@@ -58,16 +59,21 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
-    slowButton.whenPressed(toggleSlow);
-    JoystickButton longPistons = new JoystickButton(controller2, Constants.XBUTTON);
-    longPistons.whenPressed(ClimbCommands.toggleLongArms);
-    JoystickButton shortPistons = new JoystickButton(controller2, Constants.YBUTTON);
-    shortPistons.whenPressed(ClimbCommands.toggleShortArms);
-    JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
-    climbMotor.whenPressed(ClimbCommands.toggleClimbMotor);
-    JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
-    climbMotor.whenPressed(ClimbCommands.toggleClimbWinch);
+    // JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
+    // slowButton.whenPressed(toggleSlow);
+    JoystickButton forward = new JoystickButton(controller2, Constants.XBUTTON);
+    forward.whenReleased(ClimbCommands.longForward);
+    JoystickButton reverse = new JoystickButton(controller2, Constants.YBUTTON);
+    reverse.whenReleased(ClimbCommands.longReverse);
+
+    //change things down here when needed 
+
+    // JoystickButton shortPistons = new JoystickButton(controller2, Constants.YBUTTON);
+    // shortPistons.whenPressed(ClimbCommands.toggleShortArms);
+    // JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
+    // climbMotor.whenPressed(ClimbCommands.toggleClimbMotor);
+    // JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
+    // climbMotor.whenPressed(ClimbCommands.toggleClimbWinch);
   }
 
   private void configureDefaultCommands() {
@@ -83,6 +89,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return AutoCommands.defaultAutoCommand();
+    return null;
   }
 }
