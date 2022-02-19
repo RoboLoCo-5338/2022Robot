@@ -8,7 +8,9 @@ import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
@@ -79,6 +81,8 @@ public class DriveSystem extends PIDSubsystem {
 		rightFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
 		rightFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+    rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 20, 25, 1.0));
+    rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
 
     leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftFront.setNeutralMode(NeutralMode.Brake);
@@ -87,6 +91,8 @@ public class DriveSystem extends PIDSubsystem {
 		leftFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     leftFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftFront.setInverted(true);
+    leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 20, 25, 1.0));
+    leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
 
     rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightRear.setNeutralMode(NeutralMode.Brake);
@@ -95,6 +101,8 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
 		rightRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+    rightRear.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 20, 25, 1.0));
+    rightRear.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
 
     leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.setNeutralMode(NeutralMode.Brake);
@@ -104,6 +112,8 @@ public class DriveSystem extends PIDSubsystem {
 		leftRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     leftRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftRear.setInverted(true);
+    leftRear.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 20, 25, 1.0));
+    leftRear.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
   }
 
   public void setPIDF(double kP, double kI, double kD, double kF) {
