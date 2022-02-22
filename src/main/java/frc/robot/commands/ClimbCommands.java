@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.RobotContainer;
 
@@ -30,13 +31,38 @@ public class ClimbCommands {
       RobotContainer.climb
     );
 
-    public static Command toggleClimbMotor = new RunCommand(
-      () -> RobotContainer.climb.toggleClimbMotor(),
-      RobotContainer.climb
-    );
 
-    public static Command toggleClimbWinch = new RunCommand(
-      () -> RobotContainer.climb.toggleClimbWinch(),
-      RobotContainer.climb
-    );
+    public static Command climbToPos(double position) {
+      return new FunctionalCommand(
+        () -> RobotContainer.climb.keepEncoderValues(), 
+        () -> RobotContainer.climb.climbToPos(position), 
+        (interrupt) -> RobotContainer.climb.climbPercent(0),
+        () -> RobotContainer.climb.getMotorPosition() >= position, 
+        RobotContainer.climb
+        );
+    }
+
+    public static Command climbPercent(double speed) {
+      return new RunCommand(
+        () -> RobotContainer.climb.climbPercent(speed), 
+        RobotContainer.climb
+        );
+    }
+
+    public static Command winchToPos(double position) {
+      return new FunctionalCommand(
+        () -> RobotContainer.climb.keepEncoderValues(), 
+        () -> RobotContainer.climb.winchToPos(position), 
+        (interrupt) -> RobotContainer.climb.winchPercent(0),
+        () -> RobotContainer.climb.getWinchPosition() >= position, 
+        RobotContainer.climb
+        );
+    }
+
+    public static Command winchPercent(double speed) {
+      return new RunCommand(
+        () -> RobotContainer.climb.winchPercent(speed), 
+        RobotContainer.climb
+        );
+    }
 }

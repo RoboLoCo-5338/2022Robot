@@ -91,24 +91,30 @@ public class Climb extends PIDSubsystem {
         winch2.config_kD(0, kD, 100);
     }
     
-    public void toggleClimbMotor(){
-        if(motor.getSelectedSensorPosition() != 0.0){
-            motor.set(ControlMode.Position, 0.0);
-        }
-        else{
-            motor.set(ControlMode.Position, 90.0); //TODO: 90 is a placeholder value, replace with correct number later
-        }
+    public void climbToPos(double pos){
+        motor.set(ControlMode.Position, pos); 
     }
-    public void toggleClimbWinch(){
-        if(winch1.getSelectedSensorPosition() != 0.0){
-            winch1.set(ControlMode.Position, 0.0);
-            winch2.follow(winch1);
-        }
-        else{
-            winch1.set(ControlMode.Position, 90.0); //90 is a placeholder value
-            winch2.follow(winch1);
 
-        }
+    public void climbPercent(double speed) {
+        motor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public double getMotorPosition() {
+        return motor.getSelectedSensorPosition();
+    }
+
+    public void winchToPos(double pos){
+        winch1.set(ControlMode.Position, pos);
+        winch2.follow(winch1);
+    }
+
+    public void winchPercent(double speed) {
+        winch1.set(ControlMode.PercentOutput, speed);
+        winch2.follow(winch1);
+    }
+
+    public double getWinchPosition() {
+        return winch1.getSelectedSensorPosition();
     }
 
     public void longForward() {
@@ -125,6 +131,8 @@ public class Climb extends PIDSubsystem {
     public void shortReverse() {
         shortArm.set(kReverse);
     }
+
+    public void keepEncoderValues() {}
 
     @Override
     public void useOutput(double output, double setpoint) {

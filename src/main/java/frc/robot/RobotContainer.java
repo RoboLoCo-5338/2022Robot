@@ -60,19 +60,21 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
     // slowButton.whenPressed(toggleSlow);
-    JoystickButton forward = new JoystickButton(controller2, Constants.XBUTTON);
-    forward.whenReleased(ClimbCommands.longForward);
-    JoystickButton reverse = new JoystickButton(controller2, Constants.YBUTTON);
-    reverse.whenReleased(ClimbCommands.longReverse);
+    JoystickButton longForward = new JoystickButton(controller2, Constants.XBUTTON);
+    longForward.whenReleased(ClimbCommands.longForward);
+    JoystickButton longReverse = new JoystickButton(controller2, Constants.YBUTTON);
+    longReverse.whenReleased(ClimbCommands.longReverse);
 
     //change things down here when needed 
 
-    // JoystickButton shortPistons = new JoystickButton(controller2, Constants.YBUTTON);
-    // shortPistons.whenPressed(ClimbCommands.toggleShortArms);
-    // JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
-    // climbMotor.whenPressed(ClimbCommands.toggleClimbMotor);
-    // JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
-    // climbMotor.whenPressed(ClimbCommands.toggleClimbWinch);
+  //   JoystickButton shortForward = new JoystickButton(controller2, Constants.BBUTTON);
+  //   shortForward.whenPressed(ClimbCommands.shortForward);
+  //   JoystickButton shortReverse = new JoystickButton(controller2, Constants.ABUTTON);
+  //   shortReverse.whenPressed(ClimbCommands.shortReverse);
+  //   JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
+  //   climbMotor.whenPressed(ClimbCommands.climbToPos(1000)); // TODO: 1000 is random value, needs to be tested
+  //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
+  //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
   }
 
   private void configureDefaultCommands() {
