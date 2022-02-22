@@ -13,12 +13,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.subsystems.Climb;
-import frc.robot.commands.AutoCommands;
 import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.commands.ShooterCommands;
-import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 /**

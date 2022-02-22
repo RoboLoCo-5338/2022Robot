@@ -16,7 +16,6 @@ import frc.robot.Constants;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 public class Climb extends PIDSubsystem {
-    private static final double MAX_VELOCITY = 300;
 	private static final double PEAK_OUTPUT = 1.0;
 
   // set PID values
@@ -29,7 +28,7 @@ public class Climb extends PIDSubsystem {
     private static final double TICKS_PER_REVOLUTION = 2048;
     private static final double WHEEL_DIAMETER = 6.0;
     private static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-    private static final double GEAR_RATIO = 10.7 / 1;
+    private static final double GEAR_RATIO = 10.7 / 1; //TODO: change to actual value on climb
     private static final double TICKS_PER_INCH = (TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE);
     
 
