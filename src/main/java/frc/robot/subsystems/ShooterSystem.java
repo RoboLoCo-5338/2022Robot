@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class ShooterSystem extends SubsystemBase{
@@ -15,7 +17,7 @@ public class ShooterSystem extends SubsystemBase{
   private final double MAX_OUTPUT = 0.5;
  
   public ShooterSystem() {
-    shooterMotor = new WPI_TalonFX(0);
+    shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);
     this.shooterMotor.setNeutralMode(NeutralMode.Brake);       
   }
 

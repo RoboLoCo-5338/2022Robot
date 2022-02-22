@@ -15,6 +15,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import frc.robot.Constants;
 
 public class DriveSystem extends PIDSubsystem {
 	private static final double MAX_VELOCITY = 300;
@@ -55,11 +56,10 @@ public class DriveSystem extends PIDSubsystem {
     // set PID values here
     super(new PIDController(VELOCITY_P, VELOCITY_I, VELOCITY_D));
 
-    // Do we want to move these ID's to the Constants.java file?
-    rightFront = new WPI_TalonFX(2);
-    rightRear = new WPI_TalonFX(3);
-    leftFront = new WPI_TalonFX(0);
-    leftRear = new WPI_TalonFX(1);
+    rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT_DRIVE);
+    rightRear = new WPI_TalonFX(Constants.RIGHT_REAR_DRIVE);
+    leftFront = new WPI_TalonFX(Constants.LEFT_FRONT_DRIVE);
+    leftRear = new WPI_TalonFX(Constants.LEFT_REAR_DRIVE);
 
     navX = new AHRS(SPI.Port.kMXP);
 

@@ -43,7 +43,7 @@ public class AutoCommands {
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(24),
-			angleTurnCommand(90, "right").andThen(stopCommand()), //andThen tells what to do right after command finishes
+			angleTurnCommand(90, "right").andThen(stopCommand()), //andThen tells what to do right after command finishes (might prevent future things from running if in the middle of command group)
 			driveDistanceCommand(12)
 		);
 	}

@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,8 +21,8 @@ public class Intake extends SubsystemBase{
    */
       rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,1,2);// right solenoid object, ports are placeholders
       leftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,3,4);//left solenoid object, ports are placeholders
-      intakeMotor = new WPI_TalonFX(2);//intake motor
-      intakeIndexMotor = new WPI_TalonFX(3);//index motor
+      intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
+      intakeIndexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
    }
    public void indexForward(){//moves the index forward
       intakeIndexMotor.set(ControlMode.PercentOutput, 0.5);
