@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -12,11 +13,17 @@ import frc.robot.RobotContainer;
 /** Add your docs here. */
 public class ShooterCommands {
     public static Command shootCommand() {
-        return new RunCommand(() -> RobotContainer.shooterSystem.shoot(), RobotContainer.shooterSystem);
+        return new InstantCommand(
+            () -> RobotContainer.shooterSystem.shoot(), 
+            RobotContainer.shooterSystem
+        );
     }
 
     public static Command stopShootCommand() {
-        return new RunCommand(() -> RobotContainer.shooterSystem.stopShoot(), RobotContainer.shooterSystem);
+        return new InstantCommand(
+            () -> RobotContainer.shooterSystem.stopShoot(),
+            RobotContainer.shooterSystem
+        );
     }
     
 }
