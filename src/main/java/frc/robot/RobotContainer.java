@@ -59,23 +59,23 @@ public class RobotContainer {
     JoystickButton slowButton = new JoystickButton(controller, 1);
     slowButton.whenPressed(toggleSlow);
     
-    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.bButton);//replace all the buttons+ figure it out
+    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
     pneumaticsButton.whenPressed(IntakeCommands.extend());
     pneumaticsButton.whenReleased(IntakeCommands.retract());
 
-    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.aButton);
+    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.ABUTTON);
     intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
     intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.xButton);
+    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.XBUTTON);
     intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
     intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.yButton);
+    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.YBUTTON);
     outakeIndexForward.whenPressed(IntakeCommands.extend());
     outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.leftTriggerButton);
+    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.LBBUTTON);
     outakeIndexReverse.whenPressed(IntakeCommands.extend());
     outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
   }
