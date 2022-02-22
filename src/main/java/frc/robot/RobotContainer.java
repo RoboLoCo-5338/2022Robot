@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ClimbCommands;
+import frc.robot.subsystems.Climb;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
@@ -27,17 +29,20 @@ import frc.robot.subsystems.Intake;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  //public static DriveSystem driveSystem = new DriveSystem();
+  public static Climb climb = new Climb();
   public static DriveSystem driveSystem = new DriveSystem();
   public static ShooterSystem shooterSystem = new ShooterSystem();
   public static Intake intake = new Intake();
-
-  Joystick controller = new Joystick(0);
-
+  
+  private Joystick controller1 = new Joystick(0);
+  private Joystick controller2 = new Joystick(1);
+  
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
       () -> driveSystem.tankDriveVelocity(
-        this.controller.getRawAxis(1),
-        this.controller.getRawAxis(5)
+        this.controller1.getRawAxis(1),
+        this.controller1.getRawAxis(5)
       ),
       driveSystem
     );
@@ -47,6 +52,7 @@ public class RobotContainer {
       driveSystem
     );
 
+    
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -61,8 +67,26 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    JoystickButton longForward = new JoystickButton(controller2, Constants.XBUTTON);
+    longForward.whenReleased(ClimbCommands.longForward);
+    
+    JoystickButton longReverse = new JoystickButton(controller2, Constants.YBUTTON);
+    longReverse.whenReleased(ClimbCommands.longReverse);
+
+    //change things down here when needed 
+
+  //   JoystickButton shortForward = new JoystickButton(controller2, Constants.BBUTTON);
+  //   shortForward.whenPressed(ClimbCommands.shortForward);
+  //   JoystickButton shortReverse = new JoystickButton(controller2, Constants.ABUTTON);
+  //   shortReverse.whenPressed(ClimbCommands.shortReverse);
+  //   JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
+  //   climbMotor.whenPressed(ClimbCommands.climbToPos(1000)); // TODO: 1000 is random value, needs to be tested
+  //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
+  //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
+    
     JoystickButton slowButton = new JoystickButton(controller, Constants.ABUTTON);
     slowButton.whenPressed(toggleSlow);
+    
     JoystickButton shooterButton = new JoystickButton(controller, Constants.BBUTTON);
     shooterButton.whenPressed(ShooterCommands.shootCommand());
     shooterButton.whenReleased(ShooterCommands.stopShootCommand());
@@ -101,6 +125,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return AutoCommands.defaultAutoCommand();
+    return null;
   }
 }
