@@ -16,6 +16,9 @@ import frc.robot.subsystems.Climb;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.ShooterSystem;
+import frc.robot.commands.ShooterCommands;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -29,13 +32,12 @@ public class RobotContainer {
   //public static DriveSystem driveSystem = new DriveSystem();
   public static Climb climb = new Climb();
   public static DriveSystem driveSystem = new DriveSystem();
+  public static ShooterSystem shooterSystem = new ShooterSystem();
   public static Intake intake = new Intake();
   
   private Joystick controller1 = new Joystick(0);
   private Joystick controller2 = new Joystick(1);
   
-
-
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
       () -> driveSystem.tankDriveVelocity(
@@ -67,6 +69,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton longForward = new JoystickButton(controller2, Constants.XBUTTON);
     longForward.whenReleased(ClimbCommands.longForward);
+    
     JoystickButton longReverse = new JoystickButton(controller2, Constants.YBUTTON);
     longReverse.whenReleased(ClimbCommands.longReverse);
 
@@ -81,8 +84,12 @@ public class RobotContainer {
   //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
   //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
     
-    JoystickButton slowButton = new JoystickButton(controller, 1);
+    JoystickButton slowButton = new JoystickButton(controller, Constants.ABUTTON);
     slowButton.whenPressed(toggleSlow);
+    
+    JoystickButton shooterButton = new JoystickButton(controller, Constants.BBUTTON);
+    shooterButton.whenPressed(ShooterCommands.shootCommand());
+    shooterButton.whenReleased(ShooterCommands.stopShootCommand());
     
     JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
     pneumaticsButton.whenPressed(IntakeCommands.extend());

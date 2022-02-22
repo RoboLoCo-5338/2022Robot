@@ -63,7 +63,7 @@ public class AutoCommands {
 			IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
 			angleTurnCommand(22.5, "right"),
-			//fire 2 balls,
+			ShooterCommands.shootCommand(),
 			angleTurnCommand(22.5, "left"),
 			driveDistanceCommand(-116.17)
 		);
