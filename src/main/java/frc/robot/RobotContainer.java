@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.commands.ShooterCommands;
 import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,7 +29,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static DriveSystem driveSystem = new DriveSystem();
   public static ShooterSystem shooterSystem = new ShooterSystem();
-  private Joystick controller = new Joystick(0);
+  public static Intake intake = new Intake();
+
+  Joystick controller = new Joystick(0);
 
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
@@ -57,12 +61,31 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slowButton = new JoystickButton(controller, Constants.aButton);
+    JoystickButton slowButton = new JoystickButton(controller, Constants.ABUTTON);
     slowButton.whenPressed(toggleSlow);
-
-    JoystickButton shooterButton = new JoystickButton(controller, Constants.bButton);
+    JoystickButton shooterButton = new JoystickButton(controller, Constants.BBUTTON);
     shooterButton.whenPressed(ShooterCommands.shootCommand());
     shooterButton.whenReleased(ShooterCommands.stopShootCommand());
+    
+    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
+    pneumaticsButton.whenPressed(IntakeCommands.extend());
+    pneumaticsButton.whenReleased(IntakeCommands.retract());
+
+    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.ABUTTON);
+    intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.XBUTTON);
+    intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
+    intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.YBUTTON);
+    outakeIndexForward.whenPressed(IntakeCommands.extend());
+    outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.LBBUTTON);
+    outakeIndexReverse.whenPressed(IntakeCommands.extend());
+    outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
   }
 
   private void configureDefaultCommands() {
