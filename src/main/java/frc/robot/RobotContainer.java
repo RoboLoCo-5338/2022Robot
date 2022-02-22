@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.AutoCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,8 +29,12 @@ public class RobotContainer {
   //public static DriveSystem driveSystem = new DriveSystem();
   public static Climb climb = new Climb();
   public static DriveSystem driveSystem = new DriveSystem();
+  public static Intake intake = new Intake();
+  
   private Joystick controller1 = new Joystick(0);
   private Joystick controller2 = new Joystick(1);
+  
+
 
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
@@ -58,8 +65,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
-    // slowButton.whenPressed(toggleSlow);
     JoystickButton longForward = new JoystickButton(controller2, Constants.XBUTTON);
     longForward.whenReleased(ClimbCommands.longForward);
     JoystickButton longReverse = new JoystickButton(controller2, Constants.YBUTTON);
@@ -75,6 +80,29 @@ public class RobotContainer {
   //   climbMotor.whenPressed(ClimbCommands.climbToPos(1000)); // TODO: 1000 is random value, needs to be tested
   //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
   //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
+    
+    JoystickButton slowButton = new JoystickButton(controller, 1);
+    slowButton.whenPressed(toggleSlow);
+    
+    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
+    pneumaticsButton.whenPressed(IntakeCommands.extend());
+    pneumaticsButton.whenReleased(IntakeCommands.retract());
+
+    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.ABUTTON);
+    intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.XBUTTON);
+    intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
+    intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.YBUTTON);
+    outakeIndexForward.whenPressed(IntakeCommands.extend());
+    outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+
+    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.LBBUTTON);
+    outakeIndexReverse.whenPressed(IntakeCommands.extend());
+    outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
   }
 
   private void configureDefaultCommands() {

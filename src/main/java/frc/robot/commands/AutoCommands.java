@@ -39,26 +39,28 @@ public class AutoCommands {
 		return new RunCommand(() -> RobotContainer.driveSystem.tankDriveVelocity(0, 0), RobotContainer.driveSystem);
 	}
 
+	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(24),
-			angleTurnCommand(90, "right").andThen(stopCommand()),
+			angleTurnCommand(90, "right").andThen(stopCommand()), //andThen tells what to do right after command finishes
 			driveDistanceCommand(12)
 		);
 	}
 
 	public static Command driveDistanceIntake(double distance) {
 		return new ParallelCommandGroup(
-			//start intake,
+			IntakeCommands.intake(),
 			driveDistanceCommand(distance)
 		);
 	}
 
+	// start on bottom line (parallel to long side of field)
 	public static Command bottomMid1() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
 			angleTurnCommand(22.5, "right"),
 			//fire 2 balls,
@@ -70,18 +72,20 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
 			angleTurnCommand(22.5, "left"),
 			//fire 2 balls,
 			driveDistanceCommand(-116.17)
 		);
 	}
+
+	// start at far left corner (get left ball)
 	public static Command bottomLeft() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
 			driveDistanceCommand(75.07),
@@ -89,13 +93,15 @@ public class AutoCommands {
 			driveDistanceCommand(-75.07)
 		);
 	}
+
+	// start at far right corner (get left ball)
 	public static Command bottomRightLeft() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(153),
 			angleTurnCommand(67.5, "left"),
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
 			driveDistanceCommand(75.07),
