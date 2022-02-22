@@ -161,5 +161,4 @@ bin/
 # Simulation GUI and other tools window save file
 *-window.json
 
-vendordeps/Phoenix.json
-vendordeps/navx_frc.json
+vendordeps/
