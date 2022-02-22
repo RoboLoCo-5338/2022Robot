@@ -42,7 +42,7 @@ public class AutoCommands {
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(24),
-			angleTurnCommand(90, "right").andThen(stopCommand()),
+			angleTurnCommand(90, "right"),
 			driveDistanceCommand(12)
 		);
 	}
