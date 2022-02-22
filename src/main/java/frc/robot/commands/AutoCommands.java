@@ -50,7 +50,7 @@ public class AutoCommands {
 
 	public static Command driveDistanceIntake(double distance) {
 		return new ParallelCommandGroup(
-			//start intake,
+			IntakeCommands.intake(),
 			driveDistanceCommand(distance)
 		);
 	}
@@ -60,7 +60,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
 			angleTurnCommand(22.5, "right"),
 			//fire 2 balls,
@@ -72,7 +72,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
 			angleTurnCommand(22.5, "left"),
 			//fire 2 balls,
@@ -85,7 +85,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
 			driveDistanceCommand(75.07),
@@ -101,7 +101,7 @@ public class AutoCommands {
 			angleTurnCommand(67.5, "left"),
 			driveDistanceIntake(40.44),
 			angleTurnCommand(180, "right"),
-			//stop intake,
+			IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
 			driveDistanceCommand(75.07),
