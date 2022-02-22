@@ -84,30 +84,30 @@ public class RobotContainer {
   //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
   //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
     
-    JoystickButton slowButton = new JoystickButton(controller, Constants.ABUTTON);
+    JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
     slowButton.whenPressed(toggleSlow);
     
-    JoystickButton shooterButton = new JoystickButton(controller, Constants.BBUTTON);
+    JoystickButton shooterButton = new JoystickButton(controller1, Constants.BBUTTON);
     shooterButton.whenPressed(ShooterCommands.shootCommand());
     shooterButton.whenReleased(ShooterCommands.stopShootCommand());
     
-    JoystickButton pneumaticsButton = new JoystickButton(controller, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
+    JoystickButton pneumaticsButton = new JoystickButton(controller1, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
     pneumaticsButton.whenPressed(IntakeCommands.extend());
     pneumaticsButton.whenReleased(IntakeCommands.retract());
 
-    JoystickButton intakeIndexForward = new JoystickButton(controller, Constants.ABUTTON);
+    JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.ABUTTON);
     intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
     intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton intakeIndexReverse = new JoystickButton(controller, Constants.XBUTTON);
+    JoystickButton intakeIndexReverse = new JoystickButton(controller1, Constants.XBUTTON);
     intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
     intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton outakeIndexForward = new JoystickButton(controller, Constants.YBUTTON);
+    JoystickButton outakeIndexForward = new JoystickButton(controller1, Constants.YBUTTON);
     outakeIndexForward.whenPressed(IntakeCommands.extend());
     outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
 
-    JoystickButton outakeIndexReverse = new JoystickButton(controller, Constants.LBBUTTON);
+    JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.LBBUTTON);
     outakeIndexReverse.whenPressed(IntakeCommands.extend());
     outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
   }
