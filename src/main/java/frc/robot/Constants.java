@@ -22,6 +22,7 @@ public final class Constants {
     public static final int WINCH_1_ID = 1;
     public static final int WINCH_2_ID = 2;
     
+    // Joystick IDs
     public static final int ABUTTON = 1; 
     public static final int BBUTTON = 2; 
     public static final int XBUTTON = 3; 
