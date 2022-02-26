@@ -17,18 +17,12 @@ public class IntakeCommands {
 			RobotContainer.intake
 		);
     } 
-    public static Command extend() {//creates the extend command
+    public static Command toggleIntakePneumatics() {//creates the extend command
         return new InstantCommand(
-			() -> RobotContainer.intake.extend(),
+			() -> RobotContainer.intake.toggleIntakePneumatics(),
 			RobotContainer.intake
 		);
     }
-    public static Command retract() {//creates the retract  command
-        return new InstantCommand(
-			() -> RobotContainer.intake.retract(),
-			RobotContainer.intake
-		);
-    } 
     public static Command intake() {//creates the intake command
         return new InstantCommand(
 			() -> RobotContainer.intake.intake(),
