@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import java.lang.management.ClassLoadingMXBean;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands;
@@ -33,22 +36,41 @@ public class RobotContainer {
   public static ShooterSystem shooterSystem = new ShooterSystem();
   public static Intake intake = new Intake();
   
-  private Joystick controller1 = new Joystick(0);
-  private Joystick controller2 = new Joystick(1);
+  private static Joystick controller1 = new Joystick(0);
+  private static Joystick controller2 = new Joystick(1);
   
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
       () -> driveSystem.tankDriveVelocity(
-        this.controller1.getRawAxis(1),
-        this.controller1.getRawAxis(5)
+        controller1.getRawAxis(1),
+        controller1.getRawAxis(5)
       ),
       driveSystem
     );
 
-    public Command toggleSlow = new RunCommand(
+    public Command toggleSlow = new InstantCommand(
       () -> driveSystem.toggleSlow(),
       driveSystem
     );
+
+  // climb percent output commands for motors
+  public static Command climbPercentForward() {
+    return new RunCommand(
+      () -> RobotContainer.climb.climbPercent(
+        controller2.getRawAxis(1)
+      ), 
+      RobotContainer.climb
+      );
+  }
+
+  public static Command winchPercent() {
+    return new RunCommand(
+      () -> RobotContainer.climb.climbPercent(
+        controller2.getRawAxis(5)
+      ), 
+      RobotContainer.climb
+      );
+  }
 
     
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -65,55 +87,62 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton longForward = new JoystickButton(controller2, Constants.XBUTTON);
-    longForward.whenReleased(ClimbCommands.longForward);
-    
-    JoystickButton longReverse = new JoystickButton(controller2, Constants.YBUTTON);
-    longReverse.whenReleased(ClimbCommands.longReverse);
+    // drive buttons
+    JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
+    slowButton.whenPressed(toggleSlow);
 
-    //change things down here when needed 
+    // climb buttons
+    JoystickButton longPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
+    longPistonToggle.whenPressed(ClimbCommands.longToggle);
+    JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
+    shortPistonToggle.whenReleased(ClimbCommands.shortToggle);
+    
 
-  //   JoystickButton shortForward = new JoystickButton(controller2, Constants.BBUTTON);
-  //   shortForward.whenPressed(ClimbCommands.shortForward);
-  //   JoystickButton shortReverse = new JoystickButton(controller2, Constants.ABUTTON);
-  //   shortReverse.whenPressed(ClimbCommands.shortReverse);
-  //   JoystickButton climbMotor = new JoystickButton(controller2, Constants.RBBUTTON);
-  //   climbMotor.whenPressed(ClimbCommands.climbToPos(1000)); // TODO: 1000 is random value, needs to be tested
-  //   JoystickButton climbWinch = new JoystickButton(controller2, Constants.LBBUTTON);
-  //   climbWinch.whenPressed(ClimbCommands.winchToPos(1000)); // TODO: 1000 is random value, needs to be tested
-    
-    // JoystickButton slowButton = new JoystickButton(controller1, Constants.ABUTTON);
-    // slowButton.whenPressed(toggleSlow);
-    
+    // shooter buttons
     JoystickButton shooterButton = new JoystickButton(controller1, Constants.BBUTTON);
     shooterButton.whileHeld(ShooterCommands.shootCommand());
     shooterButton.whenReleased(ShooterCommands.stopShootCommand());
-    
-    // JoystickButton pneumaticsButton = new JoystickButton(controller1, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out
-    // pneumaticsButton.whenPressed(IntakeCommands.extend());
-    // pneumaticsButton.whenReleased(IntakeCommands.retract());
 
-    // JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.ABUTTON);
-    // intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
-    // intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+    JoystickButton shooterOperatorButton = new JoystickButton(controller2, Constants.BBUTTON);
+    shooterOperatorButton.whileHeld(ShooterCommands.shootCommand());
+    shooterOperatorButton.whenReleased(ShooterCommands.stopShootCommand());
 
-    // JoystickButton intakeIndexReverse = new JoystickButton(controller1, Constants.XBUTTON);
-    // intakeIndexReverse.whenPressed(IntakeCommands.intakeIndexReverse());
-    // intakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+    // intake + index buttons
+    // controller 1
+    JoystickButton intakePneumatics = new JoystickButton(controller1, Constants.YBUTTON); 
+    intakePneumatics.whenPressed(IntakeCommands.toggleIntakePneumatics());
+    // controller 2
+    JoystickButton intakePneumatics2 = new JoystickButton(controller2, Constants.YBUTTON); 
+    intakePneumatics2.whenPressed(IntakeCommands.toggleIntakePneumatics());
 
-    // JoystickButton outakeIndexForward = new JoystickButton(controller1, Constants.YBUTTON);
-    // outakeIndexForward.whenPressed(IntakeCommands.extend());
-    // outakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+    // controller 1
+    JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.LBBUTTON);
+    intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward.whenReleased(IntakeCommands.stopIntakeMotors());
+    // controller 2
+    JoystickButton intakeIndexForward2 = new JoystickButton(controller2, Constants.LBBUTTON);
+    intakeIndexForward2.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward2.whenReleased(IntakeCommands.stopIntakeMotors());
 
-    // JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.LBBUTTON);
-    // outakeIndexReverse.whenPressed(IntakeCommands.extend());
-    // outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+    // controller 1
+    JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.RBBUTTON);
+    outakeIndexReverse.whenPressed(IntakeCommands.outakeIndexReverse());
+    outakeIndexReverse.whenReleased(IntakeCommands.stopIntakeMotors());
+    // controller 2
+    JoystickButton outakeIndexReverse2 = new JoystickButton(controller2, Constants.RBBUTTON);
+    outakeIndexReverse2.whenPressed(IntakeCommands.outakeIndexReverse());
+    outakeIndexReverse2.whenReleased(IntakeCommands.stopIntakeMotors());
   }
 
   private void configureDefaultCommands() {
     driveSystem.setDefaultCommand(defaultDrive);
     CommandScheduler scheduler = CommandScheduler.getInstance();
     scheduler.setDefaultCommand(driveSystem, defaultDrive);
+
+    scheduler.setDefaultCommand(RobotContainer.climb, climbPercentForward());
+    scheduler.addButton(
+      () -> winchPercent()
+    );
   }
 
   /**

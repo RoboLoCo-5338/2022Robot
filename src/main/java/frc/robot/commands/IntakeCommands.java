@@ -47,6 +47,13 @@ public class IntakeCommands {
 			RobotContainer.intake
 		);
     }  
+
+    public static Command stopIntakeMotors() {
+      return new InstantCommand(
+        () -> RobotContainer.intake.stopIntakeMotors(),
+        RobotContainer.intake
+      );
+    }
     
     public static Command intakeIndexForward() {//creates the intake + forward index command
         return new InstantCommand(

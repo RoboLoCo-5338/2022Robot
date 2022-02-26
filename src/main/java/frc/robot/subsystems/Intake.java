@@ -49,6 +49,11 @@ public class Intake extends SubsystemBase{
    
    //combos of the intake motor and the indexing motor
 
+   public void stopIntakeMotors() {
+      stopIntake();
+      stopIndex();
+   }
+
    public void intakeIndexForward(){
       intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
       intakeIndexMotor.set(ControlMode.PercentOutput, 0.5);
