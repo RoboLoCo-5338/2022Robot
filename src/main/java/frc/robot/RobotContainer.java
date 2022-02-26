@@ -86,7 +86,7 @@ public class RobotContainer {
     // slowButton.whenPressed(toggleSlow);
     
     JoystickButton shooterButton = new JoystickButton(controller1, Constants.BBUTTON);
-    shooterButton.whenPressed(ShooterCommands.shootCommand());
+    shooterButton.whileHeld(ShooterCommands.shootCommand());
     shooterButton.whenReleased(ShooterCommands.stopShootCommand());
     
     // JoystickButton pneumaticsButton = new JoystickButton(controller1, Constants.BBUTTON); //TODO: replace all the buttons+ figure it out

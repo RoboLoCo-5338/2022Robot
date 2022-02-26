@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 public class ShooterSystem extends SubsystemBase{
  
   private WPI_TalonFX shooterMotor;
-  private final double MAX_OUTPUT = 0.5;
+  private final double MAX_OUTPUT = 0.2;
  
   public ShooterSystem() {
     shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);

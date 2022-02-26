@@ -19,8 +19,8 @@ public class Intake extends SubsystemBase{
    /* pneumatics on the right and left go at the same time
    motor starts when the pneumatics start, might want to turn it off during climb?
    */
-      rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,1,2);// right solenoid object, ports are placeholders
-      leftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,3,4);//left solenoid object, ports are placeholders
+      rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,4,5);// right solenoid object, ports are placeholders
+      leftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,6,7);//left solenoid object, ports are placeholders
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       intakeIndexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
    }

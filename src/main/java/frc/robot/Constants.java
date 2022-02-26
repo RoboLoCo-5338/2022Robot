@@ -29,7 +29,6 @@ public final class Constants {
 
     public static final int CLIMB_MOTOR_ID = 7;
     public static final int WINCH_1_ID = 8;
-    public static final int WINCH_2_ID = 9;
     
     // Joystick IDs
     public static final int ABUTTON = 1; 
