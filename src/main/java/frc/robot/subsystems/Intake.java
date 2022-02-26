@@ -30,11 +30,7 @@ public class Intake extends SubsystemBase{
    public void indexReverse(){//moves the index reverse
       intakeIndexMotor.set(ControlMode.PercentOutput, -0.5);
    }
-   public void extend(){//extend pneumatics
-      rightSolenoid.set(kForward);
-      leftSolenoid.set(kForward); 
-   }
-   public void retract(){//retract pneumatics
+   public void toggleIntakePneumatics(){//toggle pneumatics
       rightSolenoid.toggle();
       leftSolenoid.toggle();
    }
