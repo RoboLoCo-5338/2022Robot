@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
-import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 public class Climb extends PIDSubsystem {
 	private static final double PEAK_OUTPUT = 1.0;
