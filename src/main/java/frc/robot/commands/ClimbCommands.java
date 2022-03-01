@@ -11,33 +11,33 @@ import frc.robot.RobotContainer;
 
 /** Add your docs here. */
 public class ClimbCommands {
-    public static Command longToggle = new InstantCommand(
-      () -> RobotContainer.climb.longToggle(),
-      RobotContainer.climb
-    );
+    // public static Command longToggle = new InstantCommand(
+    //   () -> RobotContainer.climb.longToggle(),
+    //   RobotContainer.climb
+    // );
 
-    public static Command shortToggle = new InstantCommand(
-      () -> RobotContainer.climb.shortToggle(),
-      RobotContainer.climb
-    );
+    // public static Command shortToggle = new InstantCommand(
+    //   () -> RobotContainer.climb.shortToggle(),
+    //   RobotContainer.climb
+    // );
 
-    public static Command climbToPos(double position) {
-      return new FunctionalCommand(
-        () -> RobotContainer.climb.keepEncoderValues(), 
-        () -> RobotContainer.climb.climbToPos(position), 
-        (interrupt) -> RobotContainer.climb.climbPercent(0),
-        () -> RobotContainer.climb.getMotorPosition() >= position, 
-        RobotContainer.climb
-        );
-    }
+    // public static Command climbToPos(double position) {
+    //   return new FunctionalCommand(
+    //     () -> RobotContainer.climb.keepEncoderValues(), 
+    //     () -> RobotContainer.climb.climbToPos(position), 
+    //     (interrupt) -> RobotContainer.climb.climbPercent(0),
+    //     () -> RobotContainer.climb.getMotorPosition() >= position, 
+    //     RobotContainer.climb
+    //     );
+    // }
 
-    public static Command winchToPos(double position) {
-      return new FunctionalCommand(
-        () -> RobotContainer.climb.keepEncoderValues(), 
-        () -> RobotContainer.climb.winchToPos(position), 
-        (interrupt) -> RobotContainer.climb.winchPercent(0),
-        () -> RobotContainer.climb.getWinchPosition() >= position, 
-        RobotContainer.climb
-        );
-    }
+    // public static Command winchToPos(double position) {
+    //   return new FunctionalCommand(
+    //     () -> RobotContainer.climb.keepEncoderValues(), 
+    //     () -> RobotContainer.climb.winchToPos(position), 
+    //     (interrupt) -> RobotContainer.climb.winchPercent(0),
+    //     () -> RobotContainer.climb.getWinchPosition() >= position, 
+    //     RobotContainer.climb
+    //     );
+    // }
 }

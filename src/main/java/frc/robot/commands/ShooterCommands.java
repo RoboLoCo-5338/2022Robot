@@ -23,5 +23,4 @@ public class ShooterCommands {
             RobotContainer.shooterSystem
         );
     }
-    
 }
