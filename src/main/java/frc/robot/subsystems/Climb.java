@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
@@ -37,10 +38,8 @@ public class Climb extends PIDSubsystem {
 
     //initialize solenoids
     //placeholder CAN IDs rn
-    DoubleSolenoid longArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
-    DoubleSolenoid longArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
-    DoubleSolenoid shortArm1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
-    DoubleSolenoid shortArm2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
+    DoubleSolenoid longArms;
+    DoubleSolenoid shortArms;
 
 
     public Climb() {
@@ -48,6 +47,12 @@ public class Climb extends PIDSubsystem {
 
         armMotor = new WPI_TalonFX(Constants.CLIMB_MOTOR_ID);
         winch1 = new WPI_TalonFX(Constants.WINCH_1_ID);
+
+        longArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
+        longArms.set(Value.kReverse);
+
+        shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
+        shortArms.set(Value.kReverse);
 
         configureTalon();
     }
@@ -104,13 +109,11 @@ public class Climb extends PIDSubsystem {
     }
 
     public void longToggle() {
-        longArm1.toggle();
-        longArm2.toggle();
+        longArms.toggle();
     }
 
     public void shortToggle() {
-        shortArm1.toggle();
-        shortArm2.toggle();
+        shortArms.toggle();
     }
 
     public void keepEncoderValues() {}
