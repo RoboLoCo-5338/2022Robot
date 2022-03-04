@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Intake;
 
 /** Add your docs here. */
 public class AutoCommands {
     // Main auto commands to be built from
     public static Command angleTurnCommand(double angle, String direction) {
-		System.out.println("given: " + angle);
 		return new FunctionalCommand(
 			() -> RobotContainer.driveSystem.resetAngle(),
 			() -> RobotContainer.driveSystem.angleTurn(direction),
@@ -43,15 +43,26 @@ public class AutoCommands {
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			driveDistanceCommand(24),
-			angleTurnCommand(90, "right").andThen(stopCommand()), //andThen tells what to do right after command finishes (might prevent future things from running if in the middle of command group)
+			angleTurnCommand(90, "right"), //andThen tells what to do right after command finishes (might prevent future things from running if in the middle of command group)
 			driveDistanceCommand(12)
 		);
 	}
 
 	public static Command driveDistanceIntake(double distance) {
+		return new SequentialCommandGroup(
+			IntakeCommands.toggleIntakePneumatics(),
+			new ParallelCommandGroup(
+				// IntakeCommands.intake(),
+				driveDistanceCommand(distance)
+			),
+			IntakeCommands.toggleIntakePneumatics()
+		);
+	}
+
+	public static Command doubleShootCommand() {
 		return new ParallelCommandGroup(
-			// IntakeCommands.intake(),
-			driveDistanceCommand(distance)
+			ShooterCommands.shootCommand(),
+			IntakeCommands.indexForward()
 		);
 	}
 
@@ -62,10 +73,10 @@ public class AutoCommands {
 			angleTurnCommand(180, "right"),
 			// IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
-			angleTurnCommand(22.5, "right"),
+			angleTurnCommand(22.5, "right")
 			// ShooterCommands.shootCommand(),
-			angleTurnCommand(22.5, "left"),
-			driveDistanceCommand(-116.17)
+			// angleTurnCommand(22.5, "left"),
+			// driveDistanceCommand(-116.17)
 		);
 	}
 	public static Command bottomMid2() {
@@ -74,9 +85,9 @@ public class AutoCommands {
 			angleTurnCommand(180, "right"),
 			// IntakeCommands.stopIntake(),
 			driveDistanceCommand(116.17),
-			angleTurnCommand(22.5, "left"),
+			angleTurnCommand(22.5, "left")
 			//fire 2 balls,
-			driveDistanceCommand(-116.17)
+			// driveDistanceCommand(-116.17)
 		);
 	}
 
@@ -88,9 +99,9 @@ public class AutoCommands {
 			// IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
-			driveDistanceCommand(75.07),
+			driveDistanceCommand(75.07)
 			//fire 2 balls,
-			driveDistanceCommand(-75.07)
+			// driveDistanceCommand(-75.07)
 		);
 	}
 
@@ -104,9 +115,9 @@ public class AutoCommands {
 			// IntakeCommands.stopIntake(),
 			driveDistanceCommand(40.44),
 			angleTurnCommand(65, "right"),
-			driveDistanceCommand(75.07),
+			driveDistanceCommand(75.07)
 			//fire 2 balls,
-			driveDistanceCommand(-75.07)
+			// driveDistanceCommand(-75.07)
 		);
 	}
 }
