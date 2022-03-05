@@ -35,6 +35,35 @@ public class AutoCommands {
 		);
 	}
 
+	public static Command sidelineAuto() {
+		return new SequentialCommandGroup(
+			driveDistanceIntake(-38),
+			angleTurnCommand(157.5, "left"),
+			driveDistanceCommand(114),
+			doubleShootCommand()
+		);
+	}
+
+	public static Command middleAuto() {
+		return new SequentialCommandGroup(
+			driveDistanceIntake(-54),
+			angleTurnCommand(180, "left"),
+			driveDistanceCommand(93),
+			angleTurnCommand(22.5, "left"),
+			driveDistanceCommand(30),
+			doubleShootCommand()
+		);
+	}
+
+	public static Command hangerSideAuto() {
+		return new SequentialCommandGroup(
+			driveDistanceIntake(-38),
+			angleTurnCommand(157.5, "right"),
+			driveDistanceCommand(-117),
+			doubleShootCommand()	
+		);
+	}
+
 	public static Command stopCommand() {
 		return new RunCommand(() -> RobotContainer.driveSystem.tankDriveVelocity(0, 0), RobotContainer.driveSystem);
 	}
@@ -61,8 +90,8 @@ public class AutoCommands {
 
 	public static Command doubleShootCommand() {
 		return new ParallelCommandGroup(
-			ShooterCommands.shootCommand(),
-			IntakeCommands.indexForward()
+			ShooterCommands.shootTimeCommand(),
+			IntakeCommands.indexForwardTime()
 		);
 	}
 

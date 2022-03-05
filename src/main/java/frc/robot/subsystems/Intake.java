@@ -14,6 +14,8 @@ public class Intake extends SubsystemBase{
    // private static WPI_TalonFX intakeMotor;
    private static WPI_TalonFX indexMotor;
 
+   private double time = 0;
+
    public Intake(){
    /* pneumatics on the right and left go at the same time
    motor starts when the pneumatics start, might want to turn it off during climb?
@@ -51,6 +53,14 @@ public class Intake extends SubsystemBase{
    public void stopIntakeMotors() {
       // stopIntake();
       stopIndex();
+   }
+
+   public void startTime() {
+      this.time = System.currentTimeMillis();
+   }
+
+   public double getTime() {
+      return this.time;
    }
 
    // public void intakeIndexForward(){

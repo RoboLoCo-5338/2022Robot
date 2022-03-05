@@ -1,16 +1,28 @@
 package frc.robot.commands;
 //imports all the necessary classes
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 
 public class IntakeCommands {
     public static Command indexForward() {//creates the forward index command
-        return new InstantCommand(
-			() -> RobotContainer.intake.indexForward(),
-			RobotContainer.intake
-		);
+      return new InstantCommand(
+        () -> RobotContainer.intake.indexForward(),
+        RobotContainer.intake
+      );
     } 
+
+    public static Command indexForwardTime() {
+      return new FunctionalCommand(
+            () -> RobotContainer.intake.startTime(), 
+            () -> RobotContainer.intake.indexForward(), 
+            (interupt) -> RobotContainer.intake.stopIndex(), 
+            () -> RobotContainer.intake.getTime() > 5000, 
+            RobotContainer.intake
+        );
+    }
+    
     public static Command indexReverse() {//creates the  reverse index command
         return new InstantCommand(
 			() -> RobotContainer.intake.indexReverse(),

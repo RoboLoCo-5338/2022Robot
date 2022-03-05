@@ -15,6 +15,7 @@ public class ShooterSystem extends SubsystemBase{
  
   private WPI_TalonFX shooterMotor;
   private final double MAX_OUTPUT = 0.2;
+  private double time = 0;
  
   public ShooterSystem() {
     shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);
@@ -27,5 +28,13 @@ public class ShooterSystem extends SubsystemBase{
 
   public void stopShoot(){
     this.shooterMotor.set(ControlMode.PercentOutput, 0);    
+  }
+
+  public void startTime() {
+    this.time = System.currentTimeMillis();
+  }
+
+  public double getTime() {
+    return this.time;
   }
 }

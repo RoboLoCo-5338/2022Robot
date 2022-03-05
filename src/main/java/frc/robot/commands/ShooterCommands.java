@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 
@@ -20,6 +21,16 @@ public class ShooterCommands {
     public static Command stopShootCommand() {
         return new InstantCommand(
             () -> RobotContainer.shooterSystem.stopShoot(),
+            RobotContainer.shooterSystem
+        );
+    }
+
+    public static Command shootTimeCommand() {
+        return new FunctionalCommand(
+            () -> RobotContainer.shooterSystem.startTime(), 
+            () -> RobotContainer.shooterSystem.shoot(), 
+            (interupt) -> RobotContainer.shooterSystem.stopShoot(), 
+            () -> RobotContainer.shooterSystem.getTime() > 5000, 
             RobotContainer.shooterSystem
         );
     }
