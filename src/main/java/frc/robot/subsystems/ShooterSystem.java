@@ -14,12 +14,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 public class ShooterSystem extends SubsystemBase{
  
   private WPI_TalonFX shooterMotor;
-  private final double MAX_OUTPUT = 0.2;
   private double time = 0;
+  private final double MAX_OUTPUT = 0.6;
  
   public ShooterSystem() {
     shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);
-    this.shooterMotor.setNeutralMode(NeutralMode.Brake);       
+    this.shooterMotor.setNeutralMode(NeutralMode.Brake);    
+    this.shooterMotor.setInverted(true);   
   }
 
   public void shoot(){

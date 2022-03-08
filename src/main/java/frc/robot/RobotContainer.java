@@ -114,7 +114,7 @@ public class RobotContainer {
     // intakePneumatics2.whenPressed(IntakeCommands.toggleIntakePneumatics());
 
     // controller 1
-    JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.LBBUTTON);
+    JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.RBBUTTON);
     intakeIndexForward.whenPressed(IntakeCommands.indexForward());
     intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
     // controller 2
@@ -123,7 +123,7 @@ public class RobotContainer {
     // intakeIndexForward2.whenReleased(IntakeCommands.stopIntakeMotors());
 
     // controller 1
-    JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.RBBUTTON);
+    JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.LBBUTTON);
     outakeIndexReverse.whenPressed(IntakeCommands.indexReverse());
     outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
     // controller 2
