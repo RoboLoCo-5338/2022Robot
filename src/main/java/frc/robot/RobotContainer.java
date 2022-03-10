@@ -32,6 +32,7 @@ public class RobotContainer {
   // public static Climb climb = new Climb();
   public static DriveSystem driveSystem = new DriveSystem();
   public static ShooterSystem shooterSystem = new ShooterSystem();
+  public static Climb climb = new Climb();
   public static Intake intake = new Intake();
   
   private static Joystick controller1 = new Joystick(0);
@@ -90,10 +91,10 @@ public class RobotContainer {
     slowButton.whenPressed(toggleSlow);
 
     // climb buttons
-    // JoystickButton longPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
-    // longPistonToggle.whenPressed(ClimbCommands.longToggle);
-    // JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
-    // shortPistonToggle.whenReleased(ClimbCommands.shortToggle);
+    JoystickButton longPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
+    longPistonToggle.whenPressed(ClimbCommands.longToggle);
+    JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
+    shortPistonToggle.whenReleased(ClimbCommands.shortToggle);
     
 
     // shooter buttons
@@ -133,9 +134,9 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    // driveSystem.setDefaultCommand(defaultDrive);
-    // CommandScheduler scheduler = CommandScheduler.getInstance();
-    // scheduler.setDefaultCommand(driveSystem, defaultDrive);
+    driveSystem.setDefaultCommand(defaultDrive);
+    CommandScheduler scheduler = CommandScheduler.getInstance();
+    scheduler.setDefaultCommand(driveSystem, defaultDrive);
 
     // scheduler.setDefaultCommand(RobotContainer.climb, climbPercentForward());
     // scheduler.addButton(
