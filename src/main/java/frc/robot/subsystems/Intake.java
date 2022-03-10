@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class Intake extends SubsystemBase{
    private static DoubleSolenoid intakeSolenoid;
-   // private static WPI_TalonFX intakeMotor;
+   private static WPI_TalonFX intakeMotor;
    private static WPI_TalonFX indexMotor;
 
    private double time = 0;
@@ -23,7 +23,7 @@ public class Intake extends SubsystemBase{
       intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,4,5);//ports are placeholders
       intakeSolenoid.set(Value.kReverse);
       
-      // intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
+      intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
    }
    public void indexForward(){//moves the index forward
@@ -33,25 +33,25 @@ public class Intake extends SubsystemBase{
       indexMotor.set(ControlMode.PercentOutput, -0.3);
    }
    public void toggleIntakePneumatics(){//toggle pneumatics
-      intakeSolenoid.toggle();
+      intakeSolenoid.set(Value.kForward);
    }
-   // public void intake(){//intake motor
-   //    intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
-   // }
-   // public void outake(){//outake motor
-   //    intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
-   // }
+   public void intake(){//intake motor
+      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
+   }
+   public void outake(){//outake motor
+      intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
+   }
    public void stopIndex(){
       indexMotor.set(ControlMode.PercentOutput, 0);
    }
-   // public void stopIntake(){
-   //    intakeMotor.set(ControlMode.PercentOutput, 0);//percentOutput is a placeholder
-   // }
+   public void stopIntake(){
+      intakeMotor.set(ControlMode.PercentOutput, 0);//percentOutput is a placeholder
+   }
    
    //combos of the intake motor and the indexing motor
 
    public void stopIntakeMotors() {
-      // stopIntake();
+      stopIntake();
       stopIndex();
    }
 
@@ -63,20 +63,13 @@ public class Intake extends SubsystemBase{
       return this.time;
    }
 
-   // public void intakeIndexForward(){
-   //    intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
-   //    indexMotor.set(ControlMode.PercentOutput, 0.5);
-   // }
-   // public void intakeIndexReverse(){
-   //    intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
-   //    indexMotor.set(ControlMode.PercentOutput, -0.5);
-   // }
-   // public void outakeIndexForward(){
-   //    intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor 
-   //    indexMotor.set(ControlMode.PercentOutput, 0.5);  
-   // }
-   // public void outakeIndexReverse(){
-   //    intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor
-   //    indexMotor.set(ControlMode.PercentOutput, -0.5);   
-   // }
+   public void intakeIndexForward(){
+      intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
+      indexMotor.set(ControlMode.PercentOutput, 0.5);
+   }
+
+   public void outakeIndexReverse(){
+      intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor
+      indexMotor.set(ControlMode.PercentOutput, -0.5);   
+   }
 }
