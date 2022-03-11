@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
 
@@ -29,7 +30,7 @@ public class AutoCommands {
         return new FunctionalCommand(
 			() -> RobotContainer.driveSystem.resetPosition(),
 			() -> RobotContainer.driveSystem.driveDistance(distance),
-			(interrupt) -> RobotContainer.driveSystem.tankDriveVelocity(0, 0),
+			(interrupt) -> RobotContainer.driveSystem.tankPercent(0, 0),
 			() -> RobotContainer.driveSystem.getPosition() >= distance,
 			RobotContainer.driveSystem
 		);
@@ -71,9 +72,7 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			driveDistanceCommand(24),
-			angleTurnCommand(90, "right"), //andThen tells what to do right after command finishes (might prevent future things from running if in the middle of command group)
-			driveDistanceCommand(12)
+			driveDistanceCommand(24)
 		);
 	}
 
@@ -81,7 +80,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			IntakeCommands.toggleIntakePneumatics(),
 			new ParallelCommandGroup(
-				// IntakeCommands.intake(),
+				IntakeCommands.indexForwardTime(),
 				driveDistanceCommand(distance)
 			),
 			IntakeCommands.toggleIntakePneumatics()
@@ -89,9 +88,9 @@ public class AutoCommands {
 	}
 
 	public static Command doubleShootCommand() {
-		return new ParallelCommandGroup(
-			ShooterCommands.shootTimeCommand(),
-			IntakeCommands.indexForwardTime()
+		return new ParallelDeadlineGroup(
+			IntakeCommands.indexForward(),
+			ShooterCommands.shootCommand()
 		);
 	}
 

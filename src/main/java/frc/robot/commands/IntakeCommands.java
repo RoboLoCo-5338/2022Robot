@@ -16,8 +16,8 @@ public class IntakeCommands {
     public static Command indexForwardTime() {
       return new FunctionalCommand(
             () -> RobotContainer.intake.startTime(), 
-            () -> RobotContainer.intake.indexForward(), 
-            (interupt) -> RobotContainer.intake.stopIndex(), 
+            () -> RobotContainer.intake.intakeIndexForward(), 
+            (interupt) -> RobotContainer.intake.stopIntakeMotors(), 
             () -> RobotContainer.intake.getTime() > 5000, 
             RobotContainer.intake
         );

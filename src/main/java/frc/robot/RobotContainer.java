@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoCommands;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.IntakeCommands;
@@ -62,14 +63,14 @@ public class RobotContainer {
   //     );
   // }
 
-  // public static Command winchPercent() {
-  //   return new RunCommand(
-  //     () -> RobotContainer.climb.climbPercent(
-  //       controller2.getRawAxis(5)
-  //     ), 
-  //     RobotContainer.climb
-  //     );
-  // }
+  public static Command winchPercent() {
+    return new RunCommand(
+      () -> RobotContainer.climb.winchPercent(
+        controller2.getRawAxis(5)
+      ), 
+      RobotContainer.climb
+      );
+  }
 
     
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -116,8 +117,8 @@ public class RobotContainer {
 
     // controller 1
     JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.RBBUTTON);
-    intakeIndexForward.whenPressed(IntakeCommands.indexForward());
-    intakeIndexForward.whenReleased(IntakeCommands.stopIndex());
+    intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
+    intakeIndexForward.whenReleased(IntakeCommands.stopIntakeMotors());
     // controller 2
     JoystickButton intakeIndexForward2 = new JoystickButton(controller2, Constants.LBBUTTON);
     intakeIndexForward2.whenPressed(IntakeCommands.intakeIndexForward());
@@ -125,8 +126,8 @@ public class RobotContainer {
 
     // controller 1
     JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.LBBUTTON);
-    outakeIndexReverse.whenPressed(IntakeCommands.indexReverse());
-    outakeIndexReverse.whenReleased(IntakeCommands.stopIndex());
+    outakeIndexReverse.whenPressed(IntakeCommands.outakeIndexReverse());
+    outakeIndexReverse.whenReleased(IntakeCommands.stopIntakeMotors());
     // controller 2
     JoystickButton outakeIndexReverse2 = new JoystickButton(controller2, Constants.RBBUTTON);
     outakeIndexReverse2.whenPressed(IntakeCommands.outakeIndexReverse());
@@ -138,10 +139,7 @@ public class RobotContainer {
     CommandScheduler scheduler = CommandScheduler.getInstance();
     scheduler.setDefaultCommand(driveSystem, defaultDrive);
 
-    // scheduler.setDefaultCommand(RobotContainer.climb, climbPercentForward());
-    // scheduler.addButton(
-    //   () -> winchPercent()
-    // );
+    scheduler.setDefaultCommand(RobotContainer.climb, winchPercent());
   }
 
   /**
@@ -151,6 +149,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return AutoCommands.defaultAutoCommand();
   }
 }

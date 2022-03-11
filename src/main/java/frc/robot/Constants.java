@@ -27,7 +27,7 @@ public final class Constants {
     public static final int INDEX_MOTOR_ID = 5;
     public static final int SHOOT_MOTOR_ID = 6; 
 
-    public static final int CLIMB_MOTOR_ID = 7;
+    // public static final int CLIMB_MOTOR_ID = 7;
     public static final int WINCH_1_ID = 8;
 
     public static final int[] SHORT_ARM_ID = {2, 5};

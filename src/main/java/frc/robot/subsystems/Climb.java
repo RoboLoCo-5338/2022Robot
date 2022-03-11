@@ -33,7 +33,7 @@ public class Climb extends PIDSubsystem {
     
 
     /** Initialize Talons */
-    private static WPI_TalonFX armMotor;
+    // private static WPI_TalonFX armMotor;
     private static WPI_TalonFX winch1;
 
     //initialize solenoids
@@ -45,7 +45,7 @@ public class Climb extends PIDSubsystem {
     public Climb() {
         super(new PIDController(ANGLE_P, ANGLE_I, ANGLE_D));
 
-        armMotor = new WPI_TalonFX(Constants.CLIMB_MOTOR_ID);
+        // armMotor = new WPI_TalonFX(Constants.CLIMB_MOTOR_ID);
         winch1 = new WPI_TalonFX(Constants.WINCH_1_ID);
 
         longArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.LONG_ARM_ID[0],Constants.LONG_ARM_ID[1]);
@@ -60,12 +60,12 @@ public class Climb extends PIDSubsystem {
     private static void configureTalon() {
         // JDE: Are current limits set - should they be set here or elsewhere?
         // https://docs.ctre-phoenix.com/en/latest/ch13_MC.html#new-api-in-2020
-        armMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
-        armMotor.setNeutralMode(NeutralMode.Brake);
-        armMotor.configNeutralDeadband(0.001, 0);
-        armMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-        armMotor.setControlFramePeriod(ControlFrame.Control_3_General, 5);
-        armMotor.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+        // armMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+        // armMotor.setNeutralMode(NeutralMode.Brake);
+        // armMotor.configNeutralDeadband(0.001, 0);
+        // armMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
+        // armMotor.setControlFramePeriod(ControlFrame.Control_3_General, 5);
+        // armMotor.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     
         winch1.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
         winch1.setNeutralMode(NeutralMode.Brake);
@@ -75,26 +75,26 @@ public class Climb extends PIDSubsystem {
         winch1.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     }
     public void setPIDF(double kP, double kI, double kD, double kF) {
-        armMotor.config_kP(0, kP, 100);
-        armMotor.config_kI(0, kI, 100);
-        armMotor.config_kD(0, kD, 100);
+        // armMotor.config_kP(0, kP, 100);
+        // armMotor.config_kI(0, kI, 100);
+        // armMotor.config_kD(0, kD, 100);
 
         winch1.config_kP(0, kP, 100);
         winch1.config_kI(0, kI, 100);
         winch1.config_kD(0, kD, 100);
     }
     
-    public void climbToPos(double pos){
-        armMotor.set(ControlMode.Position, pos); 
-    }
+    // public void climbToPos(double pos){
+    //     armMotor.set(ControlMode.Position, pos); 
+    // }
 
-    public void climbPercent(double speed) {
-        armMotor.set(ControlMode.PercentOutput, speed);
-    }
+    // public void climbPercent(double speed) {
+    //     armMotor.set(ControlMode.PercentOutput, speed);
+    // }
 
-    public double getMotorPosition() {
-        return armMotor.getSelectedSensorPosition();
-    }
+    // public double getMotorPosition() {
+    //     return armMotor.getSelectedSensorPosition();
+    // }
 
     public void winchToPos(double pos){
         winch1.set(ControlMode.Position, pos);

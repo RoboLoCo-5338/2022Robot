@@ -30,7 +30,7 @@ public class DriveSystem extends PIDSubsystem {
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.0017047;
+	public static final double POSITION_P = 0.0037047;
 	public static final double POSITION_I = 0.0;
 	public static final double POSITION_D = 0.000094614;
 	public static final double POSITION_FEED_FORWARD = 0.0;
@@ -140,7 +140,9 @@ public class DriveSystem extends PIDSubsystem {
 
     // set target speeds to motors
     leftFront.set(ControlMode.Velocity, targetLeft);
+    leftRear.follow(leftFront);
     rightFront.set(ControlMode.Velocity, targetRight);
+    rightRear.follow(rightFront);
   }
 
   public void tankPercent(double left, double right) {
@@ -158,8 +160,14 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.follow(rightFront);
 		leftRear.follow(leftFront);
 
-    System.out.println("left: " + leftFront.getSelectedSensorPosition());
-    System.out.println("right: " + rightFront.getSelectedSensorPosition());
+    System.out.println("pos: " + getPosition());
+  }
+
+  public void invertMotors() {
+    leftFront.setInverted(!leftFront.getInverted());
+    rightFront.setInverted(!rightFront.getInverted());
+    rightRear.setInverted(!rightRear.getInverted());
+    leftFront.setInverted(!leftFront.getInverted());
   }
 
   public void angleTurn(String direction) {

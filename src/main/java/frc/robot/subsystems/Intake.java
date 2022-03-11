@@ -8,6 +8,7 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Intake extends SubsystemBase{
    private static DoubleSolenoid intakeSolenoid;
@@ -25,6 +26,8 @@ public class Intake extends SubsystemBase{
       
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
+
+      intakeMotor.setInverted(true);
    }
    public void indexForward(){//moves the index forward
       indexMotor.set(ControlMode.PercentOutput, 0.3);
@@ -33,19 +36,19 @@ public class Intake extends SubsystemBase{
       indexMotor.set(ControlMode.PercentOutput, -0.3);
    }
    public void toggleIntakePneumatics(){//toggle pneumatics
-      intakeSolenoid.set(Value.kForward);
+      intakeSolenoid.toggle();
    }
    public void intake(){//intake motor
-      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
+     intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
    }
    public void outake(){//outake motor
-      intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
+     intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder
    }
    public void stopIndex(){
       indexMotor.set(ControlMode.PercentOutput, 0);
    }
    public void stopIntake(){
-      intakeMotor.set(ControlMode.PercentOutput, 0);//percentOutput is a placeholder
+     intakeMotor.set(ControlMode.PercentOutput, 0);//percentOutput is a placeholder
    }
    
    //combos of the intake motor and the indexing motor
@@ -64,12 +67,12 @@ public class Intake extends SubsystemBase{
    }
 
    public void intakeIndexForward(){
-      intakeMotor.set(ControlMode.PercentOutput, 0.3);//percentOutput is a placeholder, starts the motor
+     intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder, starts the motor
       indexMotor.set(ControlMode.PercentOutput, 0.5);
    }
 
    public void outakeIndexReverse(){
-      intakeMotor.set(ControlMode.PercentOutput, -0.3);//percentOutput is a placeholder, starts the motor
+     intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder, starts the motor
       indexMotor.set(ControlMode.PercentOutput, -0.5);   
    }
 }
