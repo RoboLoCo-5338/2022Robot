@@ -73,7 +73,7 @@ public class AutoCommands {
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
 			new ShootFullCommand(),
-			driveDistanceCommand(24)
+			driveDistanceCommand(80)
 		);
 	}
 
