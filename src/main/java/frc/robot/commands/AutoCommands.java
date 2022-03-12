@@ -72,6 +72,7 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
+			new ShootFullCommand(),
 			driveDistanceCommand(24)
 		);
 	}
