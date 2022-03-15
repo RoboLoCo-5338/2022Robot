@@ -18,19 +18,19 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 300;
-	private static final double SLOW_VELOCITY = 150;
+	private static final double MAX_VELOCITY = 800;
+	private static final double SLOW_VELOCITY = 400;
 	private static final double PEAK_OUTPUT = 1.0;
   public static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.075;
+  public static final double VELOCITY_P = 0.2;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.25;
+	public static final double POSITION_P = 0.125;
 	public static final double POSITION_I = 0.0;
 	public static final double POSITION_D = 0.000094614;
 	public static final double POSITION_FEED_FORWARD = 0.0;
@@ -146,8 +146,8 @@ public class DriveSystem extends PIDSubsystem {
   }
 
   public void tankPercent(double left, double right) {
-    leftFront.set(ControlMode.PercentOutput, left);
-    rightFront.set(ControlMode.PercentOutput, right);
+    leftFront.set(ControlMode.PercentOutput, left * 0.75);
+    rightFront.set(ControlMode.PercentOutput, right * 0.75);
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
   }

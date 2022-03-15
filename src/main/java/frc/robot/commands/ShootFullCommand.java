@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class ShootFullCommand extends CommandBase {
@@ -25,7 +26,14 @@ public class ShootFullCommand extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    RobotContainer.intake.indexForward();
     RobotContainer.shooterSystem.shoot();
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    RobotContainer.intake.stopIndex();
+    RobotContainer.shooterSystem.stopShoot();
   }
 
 

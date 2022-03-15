@@ -112,6 +112,10 @@ public class Climb extends PIDSubsystem {
         longArms.toggle();
     }
 
+    public void longReverse() {
+        longArms.set(Value.kReverse);
+    }
+
     public void shortToggle() {
         shortArms.toggle();
     }

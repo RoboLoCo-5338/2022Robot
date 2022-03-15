@@ -21,6 +21,11 @@ public class ClimbCommands {
       RobotContainer.climb
     );
 
+    public static Command longReverse = new InstantCommand(
+      () -> RobotContainer.climb.longReverse(),
+      RobotContainer.climb
+    );
+
     // public static Command climbToPos(double position) {
     //   return new FunctionalCommand(
     //     () -> RobotContainer.climb.keepEncoderValues(), 
