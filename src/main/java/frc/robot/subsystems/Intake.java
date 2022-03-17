@@ -26,8 +26,6 @@ public class Intake extends SubsystemBase{
       
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
-
-      intakeMotor.setInverted(true);
    }
    public void indexForward(){//moves the index forward
       indexMotor.set(ControlMode.PercentOutput, 0.3);
