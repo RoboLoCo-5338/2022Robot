@@ -18,13 +18,13 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 800;
+	private static final double MAX_VELOCITY = 400;
 	private static final double SLOW_VELOCITY = 400;
 	private static final double PEAK_OUTPUT = 1.0;
   public static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.2;
+  public static final double VELOCITY_P = 0.006;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
@@ -135,10 +135,11 @@ public class DriveSystem extends PIDSubsystem {
     }
 
     // target speed in encoder units based on joystick position
-    targetLeft = left * targetVelocity * 2048 / 600.0;
-    targetRight = right * targetVelocity * 2048 / 600.0;
+    targetLeft = (left + 0.0078125) * targetVelocity * 2048 * GEAR_RATIO / 600.0;
+    targetRight = (right + 0.0078125) * targetVelocity * 2048 * GEAR_RATIO / 600.0;
 
     // set target speeds to motors
+    System.out.println("leftStick: " + leftFront.getSelectedSensorVelocity() + "\trightStick: " + rightFront.getSelectedSensorVelocity());
     leftFront.set(ControlMode.Velocity, targetLeft);
     leftRear.follow(leftFront);
     rightFront.set(ControlMode.Velocity, targetRight);

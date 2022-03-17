@@ -41,7 +41,7 @@ public class RobotContainer {
   
   // Initialize the drive command
     public Command defaultDrive = new RunCommand(
-      () -> driveSystem.tankPercent(
+      () -> driveSystem.tankDriveVelocity(
         controller1.getRawAxis(1),
         controller1.getRawAxis(5)
       ),
