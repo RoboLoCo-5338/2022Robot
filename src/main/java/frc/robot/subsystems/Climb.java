@@ -28,8 +28,8 @@ public class Climb extends PIDSubsystem {
     private static final double TICKS_PER_REVOLUTION = 2048;
     private static final double WHEEL_DIAMETER = 6.0;
     private static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-    private static final double GEAR_RATIO = 10.7 / 1; //TODO: change to actual value on climb
-    private static final double TICKS_PER_INCH = (TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE);
+    // private static final double GEAR_RATIO = 10.7 / 1; //TODO: change to actual value on climb
+    // private static final double TICKS_PER_INCH = (TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE);
     
 
     /** Initialize Talons */
