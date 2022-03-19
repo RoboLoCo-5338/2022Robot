@@ -35,6 +35,18 @@ public class IntakeCommands {
 			RobotContainer.intake
 		);
     }
+    public static Command intakeDown() {
+      return new InstantCommand(
+      () -> RobotContainer.intake.intakeDown(),
+      RobotContainer.intake
+      );
+    }
+    public static Command intakeUp() {
+      return new InstantCommand(
+      () -> RobotContainer.intake.intakeUp(),
+      RobotContainer.intake
+      );
+    }
     public static Command intake() {//creates the intake command
         return new InstantCommand(
 			() -> RobotContainer.intake.intake(),

@@ -110,11 +110,13 @@ public class RobotContainer {
     // intake + index buttons
     // controller 1
     JoystickButton intakePneumatics = new JoystickButton(controller1, Constants.YBUTTON); 
-    intakePneumatics.whenPressed(IntakeCommands.toggleIntakePneumatics());
+    intakePneumatics.whenPressed(IntakeCommands.intakeDown());
+    intakePneumatics.whenReleased(IntakeCommands.intakeUp());
     // controller 2
     JoystickButton intakePneumatics2 = new JoystickButton(controller2, Constants.YBUTTON); 
-    intakePneumatics2.whenPressed(IntakeCommands.toggleIntakePneumatics());
-
+    intakePneumatics2.whenPressed(IntakeCommands.intakeDown());
+    intakePneumatics2.whenReleased(IntakeCommands.intakeUp());
+    
     // controller 1
     JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.RBBUTTON);
     intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
