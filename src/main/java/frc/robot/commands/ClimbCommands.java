@@ -11,8 +11,13 @@ import frc.robot.RobotContainer;
 
 /** Add your docs here. */
 public class ClimbCommands {
-    public static Command longToggle = new InstantCommand(
-      () -> RobotContainer.climb.longToggle(),
+    public static Command longHighToggle = new InstantCommand(
+      () -> RobotContainer.climb.longHighToggle(),
+      RobotContainer.climb
+    );
+
+    public static Command longLowToggle = new InstantCommand(
+      () -> RobotContainer.climb.longLowToggle(),
       RobotContainer.climb
     );
 
@@ -21,8 +26,8 @@ public class ClimbCommands {
       RobotContainer.climb
     );
 
-    public static Command longReverse = new InstantCommand(
-      () -> RobotContainer.climb.longReverse(),
+    public static Command longHighReverse = new InstantCommand(
+      () -> RobotContainer.climb.longHighReverse(),
       RobotContainer.climb
     );
 

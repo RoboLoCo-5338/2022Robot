@@ -92,10 +92,10 @@ public class RobotContainer {
     slowButton.whenPressed(toggleSlow);
 
     // climb buttons
-    JoystickButton longPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
-    longPistonToggle.whenPressed(ClimbCommands.longToggle);
-    JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
-    shortPistonToggle.whenReleased(ClimbCommands.shortToggle);
+    JoystickButton longHighPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
+    longHighPistonToggle.whenPressed(ClimbCommands.longHighToggle);
+    JoystickButton longLowPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
+    longLowPistonToggle.whenReleased(ClimbCommands.shortToggle);
     
 
     // shooter buttons
