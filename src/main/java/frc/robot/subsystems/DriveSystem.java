@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -24,15 +25,15 @@ public class DriveSystem extends PIDSubsystem {
   public static boolean slow = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.006;
+  public static final double VELOCITY_P = 0.16453;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.125;
+	public static final double POSITION_P = 0.029521;
 	public static final double POSITION_I = 0.0;
-	public static final double POSITION_D = 0.000094614;
+	public static final double POSITION_D = 0.0020951;
 	public static final double POSITION_FEED_FORWARD = 0.0;
 
   // encoder math
@@ -74,34 +75,30 @@ public class DriveSystem extends PIDSubsystem {
     rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightFront.setNeutralMode(NeutralMode.Brake);
 		rightFront.configNeutralDeadband(0.001, 0);
-		rightFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-		rightFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+		rightFront.setSensorPhase(true);
 
     leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftFront.setNeutralMode(NeutralMode.Brake);
 		leftFront.configNeutralDeadband(0.001, 0);
-		leftFront.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-		leftFront.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     leftFront.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftFront.setInverted(true);
+    leftFront.setSensorPhase(true);
 
     rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightRear.setNeutralMode(NeutralMode.Brake);
     rightRear.follow(rightFront);
 		rightRear.configNeutralDeadband(0.001, 0);
-		rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-		rightRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
+    rightRear.follow(rightFront, FollowerType.AuxOutput1);
 
     leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.setNeutralMode(NeutralMode.Brake);
     leftRear.follow(leftFront);
 		leftRear.configNeutralDeadband(0.001, 0);
-		leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
-		leftRear.setControlFramePeriod(ControlFrame.Control_3_General, 5);
     leftRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     leftRear.setInverted(true);
+    leftRear.follow(leftFront, FollowerType.AuxOutput1);
   }
 
   public void setPIDF(double kP, double kI, double kD, double kF) {
@@ -139,18 +136,14 @@ public class DriveSystem extends PIDSubsystem {
     targetRight = (right + 0.0078125) * targetVelocity * 2048 * GEAR_RATIO / 600.0;
 
     // set target speeds to motors
-    System.out.println("leftStick: " + leftFront.getSelectedSensorVelocity() + "\trightStick: " + rightFront.getSelectedSensorVelocity());
+    System.out.println("velocity: " + getVelocity());
     leftFront.set(ControlMode.Velocity, targetLeft);
-    leftRear.follow(leftFront);
     rightFront.set(ControlMode.Velocity, targetRight);
-    rightRear.follow(rightFront);
   }
 
   public void tankPercent(double left, double right) {
     leftFront.set(ControlMode.PercentOutput, left * 0.75);
     rightFront.set(ControlMode.PercentOutput, right * 0.75);
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
   }
 
   public void driveDistance(double inches) {
@@ -158,8 +151,6 @@ public class DriveSystem extends PIDSubsystem {
     
     rightFront.set(ControlMode.Position, targetPosition);
 		leftFront.set(ControlMode.Position, targetPosition);
-		rightRear.follow(rightFront);
-		leftRear.follow(leftFront);
 
     System.out.println("pos: " + getPosition());
   }
@@ -185,6 +176,11 @@ public class DriveSystem extends PIDSubsystem {
   public double getPosition() {
     double pos = rightFront.getSelectedSensorPosition();
     return pos / GEAR_RATIO / TICKS_PER_INCH;
+  }
+
+  public double getVelocity() {
+    double v = (rightFront.getSelectedSensorVelocity() + leftFront.getSelectedSensorVelocity()) / 2.0;
+    return v / TICKS_PER_INCH / GEAR_RATIO;
   }
 
   public void resetPosition() {
