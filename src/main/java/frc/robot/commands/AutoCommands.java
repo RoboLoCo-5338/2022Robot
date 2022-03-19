@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -21,6 +23,22 @@ public class AutoCommands {
 			() -> RobotContainer.driveSystem.angleTurn(direction),
 			(interrupt) -> RobotContainer.driveSystem.tankDriveVelocity(0, 0),
 			() -> Math.abs(RobotContainer.driveSystem.getAngle()) >= angle,
+			RobotContainer.driveSystem
+		);
+	}
+
+	//pid turn command maybe??
+	public static Command pidTurnCommand(double angle) {
+		return new PIDCommand(
+			new PIDController(
+				0.0,
+				0.0,
+				0.0),
+			// Use navX sensors input 
+			() -> RobotContainer.driveSystem.getAngle(),
+			// Use angle as setpoint
+			() -> angle,
+			(output) -> RobotContainer.driveSystem.tankDriveVelocity(output, -output),
 			RobotContainer.driveSystem
 		);
 	}
