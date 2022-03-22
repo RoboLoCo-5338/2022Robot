@@ -21,7 +21,7 @@ import frc.robot.commands.Direction;
 public class DriveSystem extends PIDSubsystem {
 	private static final double MAX_VELOCITY = 300;
 	private static final double SLOW_VELOCITY = 250;
-	private static final double PEAK_OUTPUT = 1.0;
+	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
 
   // set PID values for teleop
@@ -31,7 +31,7 @@ public class DriveSystem extends PIDSubsystem {
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.029521;
+	public static final double POSITION_P = 0.0170521;
 	public static final double POSITION_I = 0.0;
 	public static final double POSITION_D = 0.0020951;
 	public static final double POSITION_FEED_FORWARD = 0.0;
@@ -43,7 +43,7 @@ public class DriveSystem extends PIDSubsystem {
   private static final double GEAR_RATIO = 10.7 / 1;
   private static final double TICKS_PER_INCH = (TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE);
 
-  private static double targetPosition = 0;
+  public static double targetPosition = 0;
 	private static Direction targetDirection;
   private static final int DEFAULT_TIMEOUT = 30;
   
@@ -121,18 +121,22 @@ public class DriveSystem extends PIDSubsystem {
     rightFront.config_kP(0, kP, 100);
     rightFront.config_kI(0, kI, 100);
     rightFront.config_kD(0, kD, 100);
+    rightFront.config_kF(0, kF, 100);
 
     leftFront.config_kP(0, kP, 100);
     leftFront.config_kI(0, kI, 100);
     leftFront.config_kD(0, kD, 100);
+    leftFront.config_kF(0, kF, 100);
     
     rightRear.config_kP(0, kP, 100);
     rightRear.config_kI(0, kI, 100);
     rightRear.config_kD(0, kD, 100);
+    rightRear.config_kF(0, kF, 100);
 
     leftRear.config_kP(0, kP, 100);
     leftRear.config_kI(0, kI, 100);
     leftRear.config_kD(0, kD, 100);
+    leftRear.config_kF(0, kF, 100);
   }
 
    // creates a PID velocity robot. Uses PID settings to determine speeds
@@ -173,13 +177,21 @@ public class DriveSystem extends PIDSubsystem {
 			targetPosition = 0;
 		}
 
+    SmartDashboard.putNumber("dist:", getPosition() / TICKS_PER_INCH / GEAR_RATIO);
+    SmartDashboard.putNumber("targetPos: ", targetPosition);
+    SmartDashboard.putNumber("encoder dis: ", rightFront.getSelectedSensorPosition());
+
+
 		leftFront.set(ControlMode.Position, targetPosition);
 		rightFront.set(ControlMode.Position, targetPosition);
   }
 
+  public void setPeakOutput(double output) {
+    PEAK_OUTPUT = output;
+  }
+
   public double getPosition() {
-    double pos = rightFront.getSelectedSensorPosition() + leftFront.getSelectedSensorPosition() / 2.0;
-    return (pos / GEAR_RATIO) / TICKS_PER_INCH;
+    return rightFront.getSelectedSensorPosition();
   }
 
   public void resetPosition() {
@@ -197,15 +209,19 @@ public class DriveSystem extends PIDSubsystem {
 		navX.reset();
 	}
 
-  public void angleTurn(String direction) {
+  public void angleTurn(Direction direction) {
     double speed = 0.2;
 
-    if (direction.equalsIgnoreCase("right")) {
+    SmartDashboard.putNumber("angle: ", getAngle());
+    if (direction == Direction.RIGHT) {
+      leftFront.set(ControlMode.PercentOutput, -speed);
+      rightFront.set(ControlMode.PercentOutput, speed);
+    } else if (direction == Direction.LEFT) {
       leftFront.set(ControlMode.PercentOutput, speed);
       rightFront.set(ControlMode.PercentOutput, -speed);
     } else {
-      leftFront.set(ControlMode.PercentOutput, -speed);
-      rightFront.set(ControlMode.PercentOutput, speed);
+      leftFront.set(ControlMode.PercentOutput, 0);
+      rightFront.set(ControlMode.PercentOutput, 0);
     }
   }
 

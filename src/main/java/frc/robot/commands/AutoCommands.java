@@ -8,8 +8,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.RobotContainer;
@@ -17,7 +19,7 @@ import frc.robot.RobotContainer;
 /** Add your docs here. */
 public class AutoCommands {
     // Main auto commands to be built from
-    public static Command angleTurnCommand(double angle, String direction) {
+    public static Command angleTurnCommand(double angle, Direction direction) {
 		return new FunctionalCommand(
 			() -> RobotContainer.driveSystem.resetAngle(),
 			() -> RobotContainer.driveSystem.angleTurn(direction),
@@ -48,15 +50,22 @@ public class AutoCommands {
 			() -> RobotContainer.driveSystem.resetPosition(),
 			() -> RobotContainer.driveSystem.driveDistance(distance, direction),
 			(interrupt) -> RobotContainer.driveSystem.tankPercent(0, 0),
-			() -> RobotContainer.driveSystem.getPosition() >= distance,
+			() -> Math.abs(RobotContainer.driveSystem.getPosition()) >= Math.abs(RobotContainer.driveSystem.targetPosition) - 500,
 			RobotContainer.driveSystem
 		);
 	}
 
+	// public static Command driveDistanceCommand(double distance, Direction direction) {
+	// 	return new RunCommand(
+	// 		() -> RobotContainer.driveSystem.driveDistance(distance, direction),
+	// 		RobotContainer.driveSystem
+	// 	);
+	// }
+
 	public static Command sidelineAuto() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(38, Direction.BACKWARD),
-			angleTurnCommand(157.5, "left"),
+			angleTurnCommand(157.5, Direction.LEFT),
 			driveDistanceCommand(114, Direction.FORWARD),
 			doubleShootCommand()
 		);
@@ -65,9 +74,9 @@ public class AutoCommands {
 	public static Command middleAuto() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(54, Direction.BACKWARD),
-			angleTurnCommand(180, "left"),
+			angleTurnCommand(180, Direction.LEFT),
 			driveDistanceCommand(93, Direction.FORWARD),
-			angleTurnCommand(22.5, "left"),
+			angleTurnCommand(22.5, Direction.LEFT),
 			driveDistanceCommand(30, Direction.FORWARD),
 			doubleShootCommand()
 		);
@@ -76,7 +85,7 @@ public class AutoCommands {
 	public static Command hangerSideAuto() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(38, Direction.BACKWARD),
-			angleTurnCommand(157.5, "right"),
+			angleTurnCommand(157.5, Direction.LEFT),
 			driveDistanceCommand(117, Direction.BACKWARD),
 			doubleShootCommand()	
 		);
@@ -89,7 +98,9 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			driveDistanceCommand(80, Direction.FORWARD)
+			driveDistanceIntake(100, Direction.FORWARD),
+			angleTurnCommand(180, Direction.RIGHT),
+			driveDistanceCommand(100, Direction.FORWARD)
 		);
 	}
 
