@@ -50,13 +50,10 @@ public class Climb extends PIDSubsystem {
         winch1 = new WPI_TalonFX(Constants.WINCH_1_ID);
 
         longArmsHigh = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_HIGH_ID[0], Constants.LONG_ARM_HIGH_ID[1]);
-        longArmsHigh.set(Value.kReverse);
-
         longArmsLow = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_LOW_ID[0], Constants.LONG_ARM_LOW_ID[1]);
-        longArmsLow.set(Value.kReverse);
 
-        //shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
-        //shortArms.set(Value.kReverse);
+        shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
+        shortArms.set(Value.kReverse);
 
         configureTalon();
     }
@@ -117,11 +114,11 @@ public class Climb extends PIDSubsystem {
     }
 
     public void longLowToggle() {
-        longArmsHigh.toggle();
+        longArmsLow.toggle();
     }
   
-    public void longReverse() {
-        longArms.set(Value.kForward);
+    public void longLowReverse() {
+        longArmsLow.set(Value.kForward);
     }
   
     public void longHighReverse() {

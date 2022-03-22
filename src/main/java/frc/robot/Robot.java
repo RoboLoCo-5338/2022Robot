@@ -29,7 +29,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    RobotContainer.climb.longReverse();
+    RobotContainer.climb.longLowReverse();
+    RobotContainer.climb.longHighReverse();
   }
 
   /**
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
     RobotContainer.driveSystem.resetPosition();
     RobotContainer.driveSystem.resetAngle();
     RobotContainer.driveSystem.setPIDF(DriveSystem.POSITION_P, DriveSystem.POSITION_I, DriveSystem.POSITION_D, DriveSystem.POSITION_FEED_FORWARD);
+    RobotContainer.climb.longLowReverse();
     RobotContainer.climb.longHighReverse();
     // RobotContainer.driveSystem.invertMotors();
     // schedule the autonomous command (example)
@@ -84,6 +86,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.climb.longLowReverse();
+    RobotContainer.climb.longHighReverse();
     RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
     RobotContainer.driveSystem.setPeakOutput(1.0);
   }
