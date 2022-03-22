@@ -8,8 +8,6 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 public class Intake extends SubsystemBase{
    private static DoubleSolenoid intakeSolenoid;
    private static WPI_TalonFX intakeMotor;

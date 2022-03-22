@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    RobotContainer.climb.longReverse();
   }
 
   /**
@@ -84,6 +85,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
+    RobotContainer.driveSystem.setPeakOutput(1.0);
   }
 
   /** This function is called periodically during operator control. */
