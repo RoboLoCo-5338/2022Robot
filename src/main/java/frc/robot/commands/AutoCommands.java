@@ -28,7 +28,7 @@ public class AutoCommands {
 	}
 
 	//pid turn command maybe??
-	public static Command pidTurnCommand(double angle) {
+	public static Command pidTurnCommand(double angle, Direction direction) { //direction variable should be either 1 or -1
 		return new PIDCommand(
 			new PIDController(
 				0.0,
@@ -38,7 +38,7 @@ public class AutoCommands {
 			() -> RobotContainer.driveSystem.getAngle(),
 			// Use angle as setpoint
 			() -> angle,
-			(output) -> RobotContainer.driveSystem.tankDriveVelocity(output, -output),
+			(output) -> RobotContainer.driveSystem.tankDriveVelocity((direction==Direction.LEFT ? 1 : -1)*output, (direction==Direction.LEFT ? 1 : -1)*-output),
 			RobotContainer.driveSystem
 		);
 	}
