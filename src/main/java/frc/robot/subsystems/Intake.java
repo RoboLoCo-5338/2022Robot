@@ -34,6 +34,12 @@ public class Intake extends SubsystemBase{
    public void toggleIntakePneumatics(){//toggle pneumatics
       intakeSolenoid.toggle();
    }
+   public void intakeDown() {
+      intakeSolenoid.set(Value.kForward);
+   }
+   public void intakeUp() {
+      intakeSolenoid.set(Value.kReverse);
+   }
    public void intake(){//intake motor
      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder
    }

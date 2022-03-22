@@ -38,7 +38,8 @@ public class Climb extends PIDSubsystem {
 
     //initialize solenoids
     //placeholder CAN IDs rn
-    DoubleSolenoid longArms;
+    DoubleSolenoid longArmsHigh;
+    DoubleSolenoid longArmsLow;
     DoubleSolenoid shortArms;
 
 
@@ -48,11 +49,14 @@ public class Climb extends PIDSubsystem {
         // armMotor = new WPI_TalonFX(Constants.CLIMB_MOTOR_ID);
         winch1 = new WPI_TalonFX(Constants.WINCH_1_ID);
 
-        longArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.LONG_ARM_ID[0],Constants.LONG_ARM_ID[1]);
-        longArms.set(Value.kReverse);
+        longArmsHigh = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_HIGH_ID[0], Constants.LONG_ARM_HIGH_ID[1]);
+        longArmsHigh.set(Value.kReverse);
 
-        shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
-        shortArms.set(Value.kReverse);
+        longArmsLow = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_LOW_ID[0], Constants.LONG_ARM_LOW_ID[1]);
+        longArmsLow.set(Value.kReverse);
+
+        //shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
+        //shortArms.set(Value.kReverse);
 
         configureTalon();
     }
@@ -108,12 +112,20 @@ public class Climb extends PIDSubsystem {
         return winch1.getSelectedSensorPosition();
     }
 
-    public void longToggle() {
-        longArms.toggle();
+    public void longHighToggle() {
+        longArmsHigh.toggle();
     }
 
+    public void longLowToggle() {
+        longArmsHigh.toggle();
+    }
+  
     public void longReverse() {
         longArms.set(Value.kForward);
+    }
+  
+    public void longHighReverse() {
+        longArmsHigh.set(Value.kReverse);
     }
 
     public void shortToggle() {

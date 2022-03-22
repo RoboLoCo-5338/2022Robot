@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     RobotContainer.driveSystem.resetPosition();
     RobotContainer.driveSystem.resetAngle();
     RobotContainer.driveSystem.setPIDF(DriveSystem.POSITION_P, DriveSystem.POSITION_I, DriveSystem.POSITION_D, DriveSystem.POSITION_FEED_FORWARD);
-    RobotContainer.climb.longReverse();
+    RobotContainer.climb.longHighReverse();
     // RobotContainer.driveSystem.invertMotors();
     // schedule the autonomous command (example)
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
