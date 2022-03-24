@@ -31,8 +31,8 @@ public final class Constants {
     public static final int WINCH_1_ID = 8;
 
    public static final int[] SHORT_ARM_ID = {2, 5};
-    public static final int[] LONG_ARM_HIGH_ID = {1, 6};
-    public static final int[] LONG_ARM_LOW_ID = {4, 3};
+    public static final int[] LONG_ARM_HIGH_ID = {6, 1};
+    public static final int[] LONG_ARM_LOW_ID = {3, 4};
     public static final int[] INTAKE_PISTON_ID = {0, 7};
     
     // Joystick IDs

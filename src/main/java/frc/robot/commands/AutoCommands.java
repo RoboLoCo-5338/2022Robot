@@ -98,9 +98,10 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			driveDistanceIntake(100, Direction.FORWARD),
-			angleTurnCommand(180, Direction.RIGHT),
-			driveDistanceCommand(100, Direction.FORWARD)
+			//driveDistanceIntake(100, Direction.FORWARD),
+			//angleTurnCommand(180, Direction.RIGHT),
+			//driveDistanceCommand(100, Direction.FORWARD)
+			new ShootFullCommand(1000)
 		);
 	}
 

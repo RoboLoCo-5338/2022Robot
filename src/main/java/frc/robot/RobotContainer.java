@@ -89,14 +89,20 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // drive buttons
     JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
-    slowButton.whenPressed(toggleSlow);
+    //slowButton.whenPressed(toggleSlow);
 
     // climb buttons
     JoystickButton longHighPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
-    longHighPistonToggle.whenPressed(ClimbCommands.longLowToggle);
+    longHighPistonToggle.whenPressed(ClimbCommands.fullClimb);
 
     JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
-    shortPistonToggle.whenPressed(ClimbCommands.longHighToggle);
+    shortPistonToggle.whenPressed(ClimbCommands.shortToggle);
+
+    JoystickButton longHighPiston = new JoystickButton(controller2, Constants.LBBUTTON);
+    longHighPiston.whenPressed(ClimbCommands.longHighToggle);
+    
+    JoystickButton longLowPiston = new JoystickButton(controller2, Constants.RBBUTTON);
+    longLowPiston.whenPressed(ClimbCommands.longLowToggle);
     
 
     // shooter buttons
@@ -123,18 +129,18 @@ public class RobotContainer {
     intakeIndexForward.whenPressed(IntakeCommands.intakeIndexForward());
     intakeIndexForward.whenReleased(IntakeCommands.stopIntakeMotors());
     // controller 2
-    JoystickButton intakeIndexForward2 = new JoystickButton(controller2, Constants.LBBUTTON);
-    intakeIndexForward2.whenPressed(IntakeCommands.intakeIndexForward());
-    intakeIndexForward2.whenReleased(IntakeCommands.stopIntakeMotors());
+    // JoystickButton intakeIndexForward2 = new JoystickButton(controller2, Constants.LBBUTTON);
+    // intakeIndexForward2.whenPressed(IntakeCommands.intakeIndexForward());
+    // intakeIndexForward2.whenReleased(IntakeCommands.stopIntakeMotors());
 
     // controller 1
     JoystickButton outakeIndexReverse = new JoystickButton(controller1, Constants.LBBUTTON);
     outakeIndexReverse.whenPressed(IntakeCommands.outakeIndexReverse());
     outakeIndexReverse.whenReleased(IntakeCommands.stopIntakeMotors());
     // controller 2
-    JoystickButton outakeIndexReverse2 = new JoystickButton(controller2, Constants.RBBUTTON);
-    outakeIndexReverse2.whenPressed(IntakeCommands.outakeIndexReverse());
-    outakeIndexReverse2.whenReleased(IntakeCommands.stopIntakeMotors());
+    // JoystickButton outakeIndexReverse2 = new JoystickButton(controller2, Constants.RBBUTTON);
+    // outakeIndexReverse2.whenPressed(IntakeCommands.outakeIndexReverse());
+    // outakeIndexReverse2.whenReleased(IntakeCommands.stopIntakeMotors());
   }
 
   private void configureDefaultCommands() {
