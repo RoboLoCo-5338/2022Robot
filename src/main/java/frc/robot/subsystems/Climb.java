@@ -52,8 +52,8 @@ public class Climb extends PIDSubsystem {
         longArmsHigh = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_HIGH_ID[0], Constants.LONG_ARM_HIGH_ID[1]);
         longArmsLow = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LONG_ARM_LOW_ID[0], Constants.LONG_ARM_LOW_ID[1]);
 
-        shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
-        shortArms.set(Value.kReverse);
+        // shortArms = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,Constants.SHORT_ARM_ID[0],Constants.SHORT_ARM_ID[1]);
+        // shortArms.set(Value.kReverse);
 
         configureTalon();
     }

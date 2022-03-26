@@ -95,8 +95,8 @@ public class RobotContainer {
     JoystickButton longHighPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
     longHighPistonToggle.whenPressed(ClimbCommands.fullClimb);
 
-    JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
-    shortPistonToggle.whenPressed(ClimbCommands.shortToggle);
+    // JoystickButton shortPistonToggle = new JoystickButton(controller2, Constants.ABUTTON);
+    // shortPistonToggle.whenPressed(ClimbCommands.shortToggle);
 
     JoystickButton longHighPiston = new JoystickButton(controller2, Constants.LBBUTTON);
     longHighPiston.whenPressed(ClimbCommands.longHighToggle);
