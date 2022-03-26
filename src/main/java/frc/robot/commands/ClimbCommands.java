@@ -32,12 +32,6 @@ public class ClimbCommands {
       RobotContainer.climb
     );
 
-    public static Command fullClimb = new SequentialCommandGroup(
-        longHighToggle,
-        new WaitCommand(2),
-        longLowToggle
-    );
-
     // public static Command climbToPos(double position) {
     //   return new FunctionalCommand(
     //     () -> RobotContainer.climb.keepEncoderValues(), 

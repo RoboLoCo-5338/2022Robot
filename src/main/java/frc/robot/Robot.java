@@ -61,6 +61,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     RobotContainer.driveSystem.resetPosition();
     RobotContainer.driveSystem.resetAngle();
+    RobotContainer.driveSystem.setPeakOutput(0.2);
+    DriveSystem.configureTalon();
     RobotContainer.driveSystem.setPIDF(DriveSystem.POSITION_P, DriveSystem.POSITION_I, DriveSystem.POSITION_D, DriveSystem.POSITION_FEED_FORWARD);
     RobotContainer.climb.longLowReverse();
     RobotContainer.climb.longHighReverse();
@@ -90,6 +92,7 @@ public class Robot extends TimedRobot {
     RobotContainer.climb.longHighReverse();
     RobotContainer.driveSystem.setPIDF(DriveSystem.VELOCITY_P, DriveSystem.VELOCITY_I, DriveSystem.VELOCITY_D, DriveSystem.VELOCITY_FEED_FORWARD);
     RobotContainer.driveSystem.setPeakOutput(1.0);
+    DriveSystem.configureTalon();
   }
 
   /** This function is called periodically during operator control. */

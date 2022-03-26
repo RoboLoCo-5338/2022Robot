@@ -10,10 +10,12 @@ import frc.robot.RobotContainer;
 public class TimedIntakeCommand extends CommandBase {
   double target;
   double targetTime;
-  public TimedIntakeCommand(int targetTime) {
+  Direction direction;
+  public TimedIntakeCommand(int targetTime, Direction direction) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.targetTime = targetTime;
+    this.direction = direction;
     addRequirements(RobotContainer.intake);
   }
 
@@ -26,7 +28,12 @@ public class TimedIntakeCommand extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    RobotContainer.intake.intakeIndexForward();
+    if (this.direction == Direction.FORWARD) {
+      RobotContainer.intake.intakeIndexForward();
+    } else {
+      RobotContainer.intake.indexReverse();
+    }
+    
   }
 
   @Override

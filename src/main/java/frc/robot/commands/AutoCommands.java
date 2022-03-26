@@ -29,18 +29,9 @@ public class AutoCommands {
 		);
 	}
 
-	//pid turn command maybe??
-	public static Command pidTurnCommand(double angle, Direction direction) { //direction variable should be either 1 or -1
-		return new PIDCommand(
-			new PIDController(
-				0.0,
-				0.0,
-				0.0),
-			// Use navX sensors input 
-			() -> RobotContainer.driveSystem.getAngle(),
-			// Use angle as setpoint
-			() -> angle,
-			(output) -> RobotContainer.driveSystem.tankDriveVelocity((direction==Direction.LEFT ? 1 : -1)*output, (direction==Direction.LEFT ? 1 : -1)*-output),
+	public static Command resetAngleCommand() {
+		return new InstantCommand(
+			() -> RobotContainer.driveSystem.resetAngle(),
 			RobotContainer.driveSystem
 		);
 	}
@@ -50,7 +41,7 @@ public class AutoCommands {
 			() -> RobotContainer.driveSystem.resetPosition(),
 			() -> RobotContainer.driveSystem.driveDistance(distance, direction),
 			(interrupt) -> RobotContainer.driveSystem.tankPercent(0, 0),
-			() -> Math.abs(RobotContainer.driveSystem.getPosition()) >= Math.abs(RobotContainer.driveSystem.targetPosition) - 500,
+			() -> Math.abs(RobotContainer.driveSystem.getPosition()) >= Math.abs(RobotContainer.driveSystem.targetPosition) - 1000,
 			RobotContainer.driveSystem
 		);
 	}
@@ -64,30 +55,35 @@ public class AutoCommands {
 
 	public static Command sidelineAuto() {
 		return new SequentialCommandGroup(
-			driveDistanceIntake(38, Direction.BACKWARD),
-			angleTurnCommand(157.5, Direction.LEFT),
-			driveDistanceCommand(114, Direction.FORWARD),
-			doubleShootCommand()
+			driveDistanceIntake(52, Direction.FORWARD),
+			resetAngleCommand(),
+			new PIDTurnCommand(160, Direction.LEFT),
+			driveDistanceCommand(90, Direction.FORWARD),
+			new TimedIntakeCommand(500, Direction.BACKWARD),
+			new ShootFullCommand(3000)
 		);
 	}
 
 	public static Command middleAuto() {
 		return new SequentialCommandGroup(
-			driveDistanceIntake(54, Direction.BACKWARD),
-			angleTurnCommand(180, Direction.LEFT),
+			driveDistanceIntake(54, Direction.FORWARD),
+			new PIDTurnCommand(170, Direction.LEFT),
 			driveDistanceCommand(93, Direction.FORWARD),
-			angleTurnCommand(22.5, Direction.LEFT),
-			driveDistanceCommand(30, Direction.FORWARD),
-			doubleShootCommand()
+			resetAngleCommand(),
+			new PIDTurnCommand(30, Direction.LEFT),
+			new TimedIntakeCommand(500, Direction.BACKWARD),
+			new ShootFullCommand(3000)
 		);
 	}
 
 	public static Command hangerSideAuto() {
 		return new SequentialCommandGroup(
-			driveDistanceIntake(38, Direction.BACKWARD),
-			angleTurnCommand(157.5, Direction.LEFT),
-			driveDistanceCommand(117, Direction.BACKWARD),
-			doubleShootCommand()	
+			driveDistanceIntake(62, Direction.FORWARD),
+			resetAngleCommand(),
+			new PIDTurnCommand(170, Direction.RIGHT),
+			driveDistanceCommand(92, Direction.FORWARD),
+			new TimedIntakeCommand(500, Direction.BACKWARD),
+			new ShootFullCommand(3000)
 		);
 	}
 
@@ -98,10 +94,8 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			//driveDistanceIntake(100, Direction.FORWARD),
-			//angleTurnCommand(180, Direction.RIGHT),
-			//driveDistanceCommand(100, Direction.FORWARD)
-			new ShootFullCommand(1000)
+			new PIDTurnCommand(90, Direction.LEFT),
+			driveDistanceCommand(20, Direction.FORWARD)
 		);
 	}
 
@@ -109,7 +103,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			IntakeCommands.toggleIntakePneumatics(),
 			new ParallelCommandGroup(
-				IntakeCommands.indexForwardTime(),
+				new TimedIntakeCommand(3100, Direction.FORWARD),
 				driveDistanceCommand(distance, direction)
 			),
 			IntakeCommands.toggleIntakePneumatics()

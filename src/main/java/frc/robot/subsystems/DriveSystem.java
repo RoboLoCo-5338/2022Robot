@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -19,20 +20,20 @@ import frc.robot.Constants;
 import frc.robot.commands.Direction;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 300;
+	private static final double MAX_VELOCITY = 400;
 	private static final double SLOW_VELOCITY = 250;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
   public static boolean straight = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.00853;
+  public static final double VELOCITY_P = 0.00983;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;
 
   // set PID values for autonomous
-	public static final double POSITION_P = 0.0170521;
+	public static final double POSITION_P = 0.0175821;
 	public static final double POSITION_I = 0.0;
 	public static final double POSITION_D = 0.0020951;
 	public static final double POSITION_FEED_FORWARD = 0.0;
@@ -74,7 +75,7 @@ public class DriveSystem extends PIDSubsystem {
 
   
   // configure talon properties
-  private static void configureTalon() {
+  public static void configureTalon() {
     // JDE: Are current limits set - should they be set here or elsewhere?
     // https://docs.ctre-phoenix.com/en/latest/ch13_MC.html#new-api-in-2020
     rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
@@ -185,11 +186,6 @@ public class DriveSystem extends PIDSubsystem {
 			targetPosition = 0;
 		}
 
-    SmartDashboard.putNumber("dist:", getPosition() / TICKS_PER_INCH / GEAR_RATIO);
-    SmartDashboard.putNumber("targetPos: ", targetPosition);
-    SmartDashboard.putNumber("encoder dis: ", rightFront.getSelectedSensorPosition());
-
-
 		leftFront.set(ControlMode.Position, targetPosition);
 		rightFront.set(ControlMode.Position, targetPosition);
   }
@@ -200,6 +196,10 @@ public class DriveSystem extends PIDSubsystem {
 
   public double getPosition() {
     return rightFront.getSelectedSensorPosition();
+  }
+
+  public double getVelocity() {
+    return rightFront.getSelectedSensorVelocity() / GEAR_RATIO / 2048;
   }
 
   public void resetPosition() {
