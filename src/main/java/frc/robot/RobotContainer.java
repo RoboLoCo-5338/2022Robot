@@ -53,6 +53,11 @@ public class RobotContainer {
       driveSystem
     );
 
+    public Command toggleStraight = new InstantCommand(
+      () -> driveSystem.toggleStraight(),
+      driveSystem
+    );
+
   // climb percent output commands for motors
   // public static Command climbPercentForward() {
   //   return new RunCommand(
@@ -71,7 +76,6 @@ public class RobotContainer {
       RobotContainer.climb
       );
   }
-
     
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -90,6 +94,8 @@ public class RobotContainer {
     // drive buttons
     JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
     //slowButton.whenPressed(toggleSlow);
+    JoystickButton straightButton = new JoystickButton(controller1, Constants.XBUTTON);
+    straightButton.whenPressed(toggleStraight);
 
     // climb buttons
     JoystickButton longHighPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);
@@ -103,7 +109,6 @@ public class RobotContainer {
     
     JoystickButton longLowPiston = new JoystickButton(controller2, Constants.RBBUTTON);
     longLowPiston.whenPressed(ClimbCommands.longLowToggle);
-    
 
     // shooter buttons
     JoystickButton shooterButton = new JoystickButton(controller1, Constants.BBUTTON);

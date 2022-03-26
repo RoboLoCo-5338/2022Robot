@@ -23,6 +23,7 @@ public class DriveSystem extends PIDSubsystem {
 	private static final double SLOW_VELOCITY = 250;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
+  public static boolean straight = false;
 
   // set PID values for teleop
   public static final double VELOCITY_P = 0.00853;
@@ -156,8 +157,15 @@ public class DriveSystem extends PIDSubsystem {
     targetRight = (right + 0.0078125) * targetVelocity * TICKS_PER_INCH;
 
     // set target speeds to motors
-    leftFront.set(ControlMode.Velocity, targetLeft);
-    rightFront.set(ControlMode.Velocity, targetRight);
+    if(!straight) {
+      leftFront.set(ControlMode.Velocity, targetLeft);
+      rightFront.set(ControlMode.Velocity, targetRight);
+    }
+    else { //set same speed to both motors if straight button held
+      leftFront.set(ControlMode.Velocity, targetLeft);
+      rightFront.set(ControlMode.Velocity, targetLeft);
+    }
+
     SmartDashboard.putNumber("left:", getPosition());
     SmartDashboard.putNumber("right:", getPosition());
   }
@@ -227,6 +235,10 @@ public class DriveSystem extends PIDSubsystem {
 
   public void toggleSlow() {
     slow = !slow;
+  }
+
+  public void toggleStraight() {
+    straight = !straight;
   }
 
   @Override
