@@ -53,8 +53,13 @@ public class RobotContainer {
       driveSystem
     );
 
-    public Command toggleStraight = new InstantCommand(
-      () -> driveSystem.toggleStraight(),
+    public Command straightTrue = new InstantCommand(
+      () -> driveSystem.setStraight(true),
+      driveSystem
+    );
+
+    public Command straightFalse = new InstantCommand(
+      () -> driveSystem.setStraight(false),
       driveSystem
     );
 
@@ -95,7 +100,8 @@ public class RobotContainer {
     JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
     //slowButton.whenPressed(toggleSlow);
     JoystickButton straightButton = new JoystickButton(controller1, Constants.XBUTTON);
-    straightButton.whenPressed(toggleStraight);
+    straightButton.whileHeld(straightTrue);
+    straightButton.whenReleased(straightFalse);
 
     // climb buttons
     JoystickButton longHighPistonToggle = new JoystickButton(controller2, Constants.XBUTTON);

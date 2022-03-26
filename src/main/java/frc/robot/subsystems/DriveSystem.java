@@ -237,8 +237,8 @@ public class DriveSystem extends PIDSubsystem {
     slow = !slow;
   }
 
-  public void toggleStraight() {
-    straight = !straight;
+  public void setStraight(boolean val) {
+    straight = val;
   }
 
   @Override
