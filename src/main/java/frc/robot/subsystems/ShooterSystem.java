@@ -27,6 +27,10 @@ public class ShooterSystem extends SubsystemBase{
     this.shooterMotor.set(ControlMode.PercentOutput, MAX_OUTPUT);    
   }
 
+  public void shootReverse(){
+    this.shooterMotor.set(ControlMode.PercentOutput, -MAX_OUTPUT);    
+  }
+
   public void stopShoot(){
     this.shooterMotor.set(ControlMode.PercentOutput, 0);    
   }

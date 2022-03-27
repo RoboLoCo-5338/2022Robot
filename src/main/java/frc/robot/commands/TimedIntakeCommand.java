@@ -31,14 +31,15 @@ public class TimedIntakeCommand extends CommandBase {
     if (this.direction == Direction.FORWARD) {
       RobotContainer.intake.intakeIndexForward();
     } else {
+      RobotContainer.shooterSystem.shootReverse();
       RobotContainer.intake.indexReverse();
     }
-    
   }
 
   @Override
   public void end(boolean interrupted) {
     RobotContainer.intake.stopIntakeMotors();
+    RobotContainer.shooterSystem.stopShoot();
   }
 
   // Called once after isFinished returns true

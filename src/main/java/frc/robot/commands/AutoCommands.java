@@ -55,7 +55,7 @@ public class AutoCommands {
 
 	public static Command sidelineAuto() {
 		return new SequentialCommandGroup(
-			driveDistanceIntake(52, Direction.FORWARD),
+			driveDistanceIntake(44, Direction.FORWARD),
 			resetAngleCommand(),
 			new PIDTurnCommand(160, Direction.LEFT),
 			driveDistanceCommand(90, Direction.FORWARD),
@@ -68,7 +68,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(54, Direction.FORWARD),
 			new PIDTurnCommand(170, Direction.LEFT),
-			driveDistanceCommand(93, Direction.FORWARD),
+			driveDistanceCommand(100, Direction.FORWARD).withTimeout(4),
 			resetAngleCommand(),
 			new PIDTurnCommand(30, Direction.LEFT),
 			new TimedIntakeCommand(500, Direction.BACKWARD),
@@ -80,8 +80,8 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(62, Direction.FORWARD),
 			resetAngleCommand(),
-			new PIDTurnCommand(170, Direction.RIGHT),
-			driveDistanceCommand(92, Direction.FORWARD),
+			new PIDTurnCommand(165, Direction.RIGHT),
+			driveDistanceCommand(140, Direction.FORWARD).withTimeout(5),
 			new TimedIntakeCommand(500, Direction.BACKWARD),
 			new ShootFullCommand(3000)
 		);
@@ -94,8 +94,8 @@ public class AutoCommands {
 	// autonomous default command group
 	public static Command defaultAutoCommand() {
 		return new SequentialCommandGroup(
-			new PIDTurnCommand(90, Direction.LEFT),
-			driveDistanceCommand(20, Direction.FORWARD)
+			new ShootFullCommand(3000),
+			driveDistanceCommand(80, Direction.BACKWARD)
 		);
 	}
 
