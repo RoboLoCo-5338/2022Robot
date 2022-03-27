@@ -100,9 +100,9 @@ public class RobotContainer {
     JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
     slowButton.whenPressed(toggleSlow);
 
-    JoystickButton straightButton = new JoystickButton(controller1, Constants.XBUTTON);
-    straightButton.whileHeld(straightTrue);
-    straightButton.whenReleased(straightFalse);
+    // JoystickButton straightButton = new JoystickButton(controller1, Constants.XBUTTON);
+    // straightButton.whileHeld(straightTrue);
+    // straightButton.whenReleased(straightFalse);
 
     // climb buttons
     JoystickButton longHighPiston = new JoystickButton(controller2, Constants.LBBUTTON);
@@ -122,13 +122,13 @@ public class RobotContainer {
 
     // intake + index buttons
     // controller 1
-    JoystickButton intakePneumatics = new JoystickButton(controller1, Constants.YBUTTON); 
-    intakePneumatics.whenPressed(IntakeCommands.toggleIntakePneumatics());
+    // JoystickButton intakePneumatics = new JoystickButton(controller1, Constants.YBUTTON); 
+    // intakePneumatics.whenPressed(IntakeCommands.toggleIntakePneumatics());
 
     // controller 2
-    // JoystickButton intakePneumatics2 = new JoystickButton(controller2, Constants.YBUTTON); 
-    // intakePneumatics2.whenPressed(IntakeCommands.intakeDown());
-    // intakePneumatics2.whenReleased(IntakeCommands.intakeUp());
+    JoystickButton intakePneumatics2 = new JoystickButton(controller2, Constants.YBUTTON); 
+    intakePneumatics2.whenPressed(IntakeCommands.intakeDown());
+    intakePneumatics2.whenReleased(IntakeCommands.intakeUp());
     
     // controller 1
     JoystickButton intakeIndexForward = new JoystickButton(controller1, Constants.RBBUTTON);
@@ -164,6 +164,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return AutoCommands.hangerSideAuto();
+    return AutoCommands.sidelineAuto();
   }
 }
