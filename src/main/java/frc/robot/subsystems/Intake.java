@@ -8,6 +8,7 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 public class Intake extends SubsystemBase{
    private static DoubleSolenoid intakeSolenoid;
    private static WPI_TalonFX intakeMotor;
@@ -24,6 +25,8 @@ public class Intake extends SubsystemBase{
       
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
+      intakeMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 40);
+      indexMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 40);
    }
    public void indexForward(){//moves the index forward
       indexMotor.set(ControlMode.PercentOutput, 0.3);

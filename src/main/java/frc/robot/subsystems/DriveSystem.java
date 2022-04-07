@@ -8,6 +8,7 @@ import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
@@ -20,7 +21,7 @@ import frc.robot.Constants;
 import frc.robot.commands.Direction;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 450;
+	private static final double MAX_VELOCITY = 550;
 	private static final double SLOW_VELOCITY = 250;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
@@ -105,6 +106,7 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.configPeakOutputReverse(-PEAK_OUTPUT);
     rightRear.configNominalOutputForward(0, 30);
 		rightRear.configNominalOutputReverse(0, 30);
+    rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 200);
 
     leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.follow(leftFront);
@@ -117,6 +119,7 @@ public class DriveSystem extends PIDSubsystem {
 		leftRear.configPeakOutputReverse(-PEAK_OUTPUT);
 		leftRear.configNominalOutputForward(0, DEFAULT_TIMEOUT);
 		leftRear.configNominalOutputReverse(0, DEFAULT_TIMEOUT);
+    leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 200);
   }
 
   public void setPIDF(double kP, double kI, double kD, double kF) {
@@ -158,14 +161,8 @@ public class DriveSystem extends PIDSubsystem {
     targetRight = (right + 0.0078125) * targetVelocity * TICKS_PER_INCH;
 
     // set target speeds to motors
-    if(!straight) {
-      leftFront.set(ControlMode.Velocity, targetLeft);
-      rightFront.set(ControlMode.Velocity, targetRight);
-    }
-    else { //set same speed to both motors if straight button held
-      leftFront.set(ControlMode.Velocity, targetLeft);
-      rightFront.set(ControlMode.Velocity, targetLeft);
-    }
+    leftFront.set(ControlMode.Velocity, targetLeft);
+    rightFront.set(ControlMode.Velocity, targetRight);
 
     SmartDashboard.putNumber("left:", getPosition());
     SmartDashboard.putNumber("right:", getPosition());

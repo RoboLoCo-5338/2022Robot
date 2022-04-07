@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 
 public class ShooterSystem extends SubsystemBase{
  
@@ -20,7 +21,8 @@ public class ShooterSystem extends SubsystemBase{
   public ShooterSystem() {
     shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);
     this.shooterMotor.setNeutralMode(NeutralMode.Brake);    
-    this.shooterMotor.setInverted(true);   
+    this.shooterMotor.setInverted(true);  
+    this.shooterMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 50); 
   }
 
   public void shoot(){
