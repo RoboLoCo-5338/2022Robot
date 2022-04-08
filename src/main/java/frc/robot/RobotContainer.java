@@ -48,32 +48,6 @@ public class RobotContainer {
       driveSystem
     );
 
-    public Command indexUpCommand() {
-      if (controller1.getRawAxis(3) > 0) { 
-        return new RunCommand(
-          () -> intake.indexForward(),
-          intake
-        );
-      } else {
-        return new RunCommand(
-          () -> intake.stopIndex(), 
-          intake);
-      }
-    }
-
-    public Command indexDownCommand() {
-      if (controller1.getRawAxis(2) > 0) { 
-        return new RunCommand(
-          () -> intake.indexReverse(),
-          intake
-        );
-      } else {
-        return new RunCommand(
-          () -> intake.stopIndex(), 
-          intake);
-      }
-    }
-
     public Command toggleSlow = new InstantCommand(
       () -> driveSystem.toggleSlow(),
       driveSystem
@@ -181,8 +155,8 @@ public class RobotContainer {
     scheduler.setDefaultCommand(driveSystem, defaultDrive);
 
     scheduler.setDefaultCommand(RobotContainer.climb, winchPercent());
-    scheduler.addButton(() -> indexUpCommand());
-    scheduler.addButton(() -> indexDownCommand());
+    // scheduler.addButton(() -> indexUpCommand());
+    // scheduler.addButton(() -> indexDownCommand());
   }
 
   /**

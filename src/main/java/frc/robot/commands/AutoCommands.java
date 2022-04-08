@@ -76,6 +76,13 @@ public class AutoCommands {
 		);
 	}
 
+	public static Command closeAuto() {
+		return new SequentialCommandGroup(
+			new ShootFullCommand(3000),
+			driveDistanceCommand(125, Direction.BACKWARD)
+		);
+	}
+
 	public static Command hangerSideAuto() {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(62, Direction.FORWARD),

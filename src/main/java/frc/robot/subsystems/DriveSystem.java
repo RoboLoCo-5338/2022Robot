@@ -21,7 +21,7 @@ import frc.robot.Constants;
 import frc.robot.commands.Direction;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 550;
+	private static final double MAX_VELOCITY = 600;
 	private static final double SLOW_VELOCITY = 250;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
@@ -106,7 +106,8 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.configPeakOutputReverse(-PEAK_OUTPUT);
     rightRear.configNominalOutputForward(0, 30);
 		rightRear.configNominalOutputReverse(0, 30);
-    rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 200);
+    rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 150);
+    rightRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 200);
 
     leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.follow(leftFront);
@@ -119,7 +120,8 @@ public class DriveSystem extends PIDSubsystem {
 		leftRear.configPeakOutputReverse(-PEAK_OUTPUT);
 		leftRear.configNominalOutputForward(0, DEFAULT_TIMEOUT);
 		leftRear.configNominalOutputReverse(0, DEFAULT_TIMEOUT);
-    leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 200);
+    leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 150);
+    leftRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 200);
   }
 
   public void setPIDF(double kP, double kI, double kD, double kF) {

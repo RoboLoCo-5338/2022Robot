@@ -74,7 +74,8 @@ public class Climb extends PIDSubsystem {
         winch1.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
         winch1.setControlFramePeriod(ControlFrame.Control_3_General, 5);
         winch1.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
-        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 50);
+        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
     }
     public void setPIDF(double kP, double kI, double kD, double kF) {
         // armMotor.config_kP(0, kP, 100);
