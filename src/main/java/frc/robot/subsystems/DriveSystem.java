@@ -21,8 +21,8 @@ import frc.robot.Constants;
 import frc.robot.commands.Direction;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 600;
-	private static final double SLOW_VELOCITY = 250;
+	private static final double MAX_VELOCITY = 250;
+	private static final double SLOW_VELOCITY = 550;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
   public static boolean straight = false;
@@ -97,7 +97,7 @@ public class DriveSystem extends PIDSubsystem {
     leftFront.configNominalOutputForward(0, DEFAULT_TIMEOUT);
 		leftFront.configNominalOutputReverse(0, DEFAULT_TIMEOUT);
 
-    rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+    //rightRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     rightRear.follow(rightFront);
 		rightRear.configNeutralDeadband(0.001, 0);
     rightRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
@@ -106,10 +106,10 @@ public class DriveSystem extends PIDSubsystem {
 		rightRear.configPeakOutputReverse(-PEAK_OUTPUT);
     rightRear.configNominalOutputForward(0, 30);
 		rightRear.configNominalOutputReverse(0, 30);
-    rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 150);
-    rightRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 200);
+    rightRear.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    rightRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
 
-    leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+    // leftRear.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
     leftRear.follow(leftFront);
 		leftRear.configNeutralDeadband(0.001, 0);
     leftRear.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
@@ -120,8 +120,8 @@ public class DriveSystem extends PIDSubsystem {
 		leftRear.configPeakOutputReverse(-PEAK_OUTPUT);
 		leftRear.configNominalOutputForward(0, DEFAULT_TIMEOUT);
 		leftRear.configNominalOutputReverse(0, DEFAULT_TIMEOUT);
-    leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 150);
-    leftRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 200);
+    leftRear.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    leftRear.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
   }
 
   public void setPIDF(double kP, double kI, double kD, double kF) {
@@ -232,8 +232,8 @@ public class DriveSystem extends PIDSubsystem {
     }
   }
 
-  public void toggleSlow() {
-    slow = !slow;
+  public void setSlow(boolean val) {
+    slow = val;
   }
 
   public void setStraight(boolean val) {

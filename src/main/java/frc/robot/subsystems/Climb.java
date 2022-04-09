@@ -68,14 +68,13 @@ public class Climb extends PIDSubsystem {
         // armMotor.setControlFramePeriod(ControlFrame.Control_3_General, 5);
         // armMotor.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
     
-        winch1.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+        //winch1.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
         winch1.setNeutralMode(NeutralMode.Brake);
         winch1.configNeutralDeadband(0.001, 0);
         winch1.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 0);
         winch1.setControlFramePeriod(ControlFrame.Control_3_General, 5);
         winch1.configClosedLoopPeakOutput(0, PEAK_OUTPUT, 100);
-        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
-        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
+        winch1.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100);
     }
     public void setPIDF(double kP, double kI, double kD, double kF) {
         // armMotor.config_kP(0, kP, 100);

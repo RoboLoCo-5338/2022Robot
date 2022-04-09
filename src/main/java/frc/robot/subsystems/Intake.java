@@ -25,8 +25,8 @@ public class Intake extends SubsystemBase{
       
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
-      intakeMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
-      indexMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
+      intakeMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100);
+      indexMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100);
    }
    public void indexForward(){//moves the index forward
       indexMotor.set(ControlMode.PercentOutput, 0.3);
@@ -72,12 +72,12 @@ public class Intake extends SubsystemBase{
    }
 
    public void intakeIndexForward(){
-     intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder, starts the motor
+      intakeMotor.set(ControlMode.PercentOutput, 0.5);//percentOutput is a placeholder, starts the motor
       indexMotor.set(ControlMode.PercentOutput, 0.5);
    }
 
    public void outakeIndexReverse(){
-     intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder, starts the motor
+      intakeMotor.set(ControlMode.PercentOutput, -0.5);//percentOutput is a placeholder, starts the motor
       indexMotor.set(ControlMode.PercentOutput, -0.5);   
    }
 }

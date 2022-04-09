@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.subsystems.Climb;
@@ -48,8 +49,13 @@ public class RobotContainer {
       driveSystem
     );
 
-    public Command toggleSlow = new InstantCommand(
-      () -> driveSystem.toggleSlow(),
+    public Command slowOn = new InstantCommand(
+      () -> driveSystem.setSlow(true),
+      driveSystem
+    );
+
+    public Command slowOff = new InstantCommand(
+      () -> driveSystem.setSlow(false),
       driveSystem
     );
 
@@ -97,8 +103,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // drive buttons
-    JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
-    slowButton.whenPressed(toggleSlow);
+    // JoystickButton slowButton = new JoystickButton(controller1, Constants.STARTBUTTON);
+    // slowButton.whenPressed(toggleSlow);
+
+    Trigger slowToggle = new Trigger(() -> controller1.getRawAxis(3) > 0.5);
+    slowToggle.whenActive(slowOn);
+    slowToggle.whenInactive(slowOff);
 
     // JoystickButton straightButton = new JoystickButton(controller1, Constants.XBUTTON);
     // straightButton.whileHeld(straightTrue);
@@ -166,6 +176,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return AutoCommands.hangerSideAuto();
+    return AutoCommands.sidelineAuto();
   }
 }
