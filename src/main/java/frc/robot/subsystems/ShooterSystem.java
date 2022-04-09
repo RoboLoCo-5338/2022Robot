@@ -22,7 +22,7 @@ public class ShooterSystem extends SubsystemBase{
     shooterMotor = new WPI_TalonFX(Constants.SHOOT_MOTOR_ID);
     this.shooterMotor.setNeutralMode(NeutralMode.Brake);    
     this.shooterMotor.setInverted(true);  
-    this.shooterMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100); 
+    this.shooterMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 200); 
   }
 
   public void shoot(){

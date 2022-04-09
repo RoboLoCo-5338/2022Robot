@@ -25,7 +25,6 @@ public class Intake extends SubsystemBase{
       
       intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
       indexMotor = new WPI_TalonFX(Constants.INDEX_MOTOR_ID);
-      intakeMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100);
       indexMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100);
    }
    public void indexForward(){//moves the index forward
