@@ -21,14 +21,14 @@ import frc.robot.Constants;
 import frc.robot.commands.Direction;
 
 public class DriveSystem extends PIDSubsystem {
-	private static final double MAX_VELOCITY = 250;
-	private static final double SLOW_VELOCITY = 550;
+	private static final double MAX_VELOCITY = 350;
+	private static final double SLOW_VELOCITY = 650;
 	private static double PEAK_OUTPUT = 0.2;
   public static boolean slow = false;
   public static boolean straight = false;
 
   // set PID values for teleop
-  public static final double VELOCITY_P = 0.0103;
+  public static final double VELOCITY_P = 0.0110;
 	public static final double VELOCITY_I = 0.0;
 	public static final double VELOCITY_D = 0.0;
 	public static final double VELOCITY_FEED_FORWARD = 0.0;

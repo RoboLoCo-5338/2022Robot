@@ -87,7 +87,7 @@ public class AutoCommands {
 		return new SequentialCommandGroup(
 			driveDistanceIntake(62, Direction.FORWARD),
 			resetAngleCommand(),
-			new PIDTurnCommand(160, Direction.RIGHT),
+			new PIDTurnCommand(168, Direction.RIGHT),
 			driveDistanceCommand(94, Direction.FORWARD).withTimeout(4),
 			new TimedIntakeCommand(500, Direction.BACKWARD),
 			new ShootFullCommand(3000)
